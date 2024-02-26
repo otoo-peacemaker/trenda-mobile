@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:trenda/theme/text_themes.dart';
 import '../../core/app_export.dart';
+import 'colors/color_scheme.dart';
+import 'colors/primary_colors.dart';
 
 /// Helper class for managing themes and colors.
 class ThemeHelper {
@@ -43,12 +46,12 @@ class ThemeHelper {
       visualDensity: VisualDensity.standard,
       colorScheme: colorScheme,
       textTheme: TextThemes.textTheme(colorScheme),
-      scaffoldBackgroundColor: appTheme.whiteA700,
+      scaffoldBackgroundColor: appThemeColors.whiteA700,
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          backgroundColor: appTheme.greenA400,
+          backgroundColor: appThemeColors.greenA400,
           side: BorderSide(
-            color: appTheme.greenA400,
+            color: appThemeColors.greenA400,
             width: 1.h,
           ),
           shape: RoundedRectangleBorder(
@@ -63,7 +66,7 @@ class ThemeHelper {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: appTheme.cyan50,
+          backgroundColor: appThemeColors.cyan50,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.h),
           ),
@@ -75,11 +78,17 @@ class ThemeHelper {
         ),
       ),
       checkboxTheme: CheckboxThemeData(
+        checkColor: MaterialStateColor.resolveWith((states) {
+          if (states.contains(MaterialState.selected)) {
+            return appThemeColors.whiteA700;
+          }
+          return colorScheme.onPrimary;
+        }),
         fillColor: MaterialStateColor.resolveWith((states) {
           if (states.contains(MaterialState.selected)) {
-            return colorScheme.onSurface;
+            return appThemeColors.greenA700;
           }
-          return colorScheme.primary;
+          return colorScheme.onPrimary;
         }),
         side: const BorderSide(
           width: 1,
@@ -99,123 +108,5 @@ class ThemeHelper {
   ThemeData themeData() => _getThemeData();
 }
 
-/// Class containing the supported text theme styles.
-class TextThemes {
-  static TextTheme textTheme(ColorScheme colorScheme) => TextTheme(
-        bodyLarge: TextStyle(
-          color: colorScheme.onPrimaryContainer,
-          fontSize: 18.fSize,
-          fontFamily: 'Gilroy-Regular',
-          fontWeight: FontWeight.w400,
-        ),
-        bodyMedium: TextStyle(
-          color: appTheme.blueGray900,
-          fontSize: 14.fSize,
-          fontFamily: 'Gilroy-Medium',
-          fontWeight: FontWeight.w300,
-        ),
-        bodySmall: TextStyle(
-          color: appTheme.gray400,
-          fontSize: 13.fSize,
-          fontFamily: 'Gilroy-Medium',
-          fontWeight: FontWeight.w200,
-        ),
-        displaySmall: TextStyle(
-          color: colorScheme.onErrorContainer,
-          fontSize: 15.fSize,
-          fontFamily: 'Gilroy-Medium',
-          fontWeight: FontWeight.w400,
-        ),
-        displayMedium: TextStyle(
-          color: colorScheme.onPrimary,
-          fontSize: 28.fSize,
-          fontFamily: 'Gilroy-Medium',
-          fontWeight: FontWeight.w400,
-        ),
-        displayLarge: TextStyle(
-          color: colorScheme.onErrorContainer,
-          fontSize: 48.fSize,
-          fontFamily: 'Gilroy-Medium',
-          fontWeight: FontWeight.w400,
-        ),
-        titleLarge: TextStyle(
-          color: appTheme.blueGray800,
-          fontSize: 20.fSize,
-          fontFamily: 'Gilroy-Medium',
-          fontWeight: FontWeight.w400,
-        ),
-      );
-}
-
-/// Class containing the supported color schemes.
-class ColorSchemes {
-  static const primaryColorScheme = ColorScheme.light(
-    // Primary colors
-    primary: Color(0X0C101828),
-    primaryContainer: Color(0XFFEA4335),
-
-    onSurface: Color(0XFF00B557),
-    // Error colors
-    errorContainer: Color(0XFF1D2838),
-    onErrorContainer: Color(0XFFCFD4DC),
-
-    // On colors(text colors)
-    onPrimary: Color(0XFF98A1B2),
-    onPrimaryContainer: Color(0XFF0F1728),
-  );
-
-  static const primaryDarkColorScheme = ColorScheme.dark(
-    // Primary colors
-    primary: Color(0X0C101828),
-    primaryContainer: Color(0XFFEA4335),
-
-    onSurface: Color(0X0C101828),
-
-    // Error colors
-    errorContainer: Color(0XFF1D2838),
-    onErrorContainer: Color(0XFFCFD4DC),
-
-    // On colors(text colors)
-    onPrimary: Color(0XFF98A1B2),
-    onPrimaryContainer: Color(0XFF0F1728),
-  );
-}
-
-/// Class containing custom colors for a primary theme.
-class PrimaryColors {
-  // BlueGray
-  Color get blueGray50 => const Color(0XFFEAECF0);
-  Color get blueGray500 => const Color(0XFF667084);
-  Color get blueGray700 => const Color(0XFF475466);
-  Color get blueGray70014 => const Color(0X14475467);
-  Color get blueGray800 => const Color(0XFF344053);
-  Color get blueGray900 => const Color(0XFF005228);
-
-  // Cyan
-  Color get cyan50 => const Color(0XFFE6FFF2);
-
-  // Gray
-  Color get gray50 => const Color(0XFFFBFCFC);
-  Color get gray100 => const Color(0XFFF2F3F6);
-  Color get gray400 => const Color(0XFF98A2B3);
-  Color get gray600 => const Color(0XFFF2F3F6);
-  Color get gray5001 => const Color(0XFFF8F9FB);
-
-  // Green
-  Color get greenA100 => const Color(0XFFB0FFD6);
-  Color get greenA200 => const Color(0XFF44F499);
-  Color get greenA400 => const Color(0XFF00E870);
-  Color get greenA700 => const Color(0XFF00B557);
-
-  // Teal
-  Color get teal800 => const Color(0XFF008C44);
-  Color get teal900 => const Color(0XFF005127);
-  Color get tealA400 => const Color(0XFF33FF95);
-
-  // White
-  Color get whiteA700 => const Color(0XFFFCFFFD);
-  Color get whiteA70001 => const Color(0XFFFFFFFF);
-}
-
-PrimaryColors get appTheme => ThemeHelper().themeColor();
-ThemeData get theme => ThemeHelper().themeData();
+PrimaryColors get appThemeColors => ThemeHelper().themeColor();
+ThemeData get appThemeData => ThemeHelper().themeData();

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:trenda/presentation/authentication/forgot_password.dart';
 import 'package:trenda/presentation/authentication/select_option_to_verify_account_screen.dart';
 import 'package:trenda/presentation/homepage_page/homepage_page.dart';
-import 'package:trenda/presentation/onboarding_two_screen/onboarding_two_screen.dart';
 import 'package:trenda/presentation/authentication/sign_up_screen.dart';
 import 'package:trenda/presentation/authentication/sign_in_screen.dart';
 import 'package:trenda/presentation/authentication/verificy_account_screen.dart';
@@ -58,7 +57,6 @@ class AppRoutes {
         resetPasswordScreen: ResetPasswordScreen.builder,
         forgotPasswordScreen: ForgotPasswordScreen.builder,
         homepagePage: HomepagePage.builder,
-        onboardingTwoScreen: OnboardingTwoScreen.builder,
 
         // splashScreen: SplashScreen.builder,
       };

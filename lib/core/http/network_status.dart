@@ -10,12 +10,12 @@ class CustomEasyLoading {
       ..indicatorType = EasyLoadingIndicatorType.fadingCircle
       ..loadingStyle = EasyLoadingStyle.custom
       ..indicatorSize = 30
-      ..displayDuration = const Duration(seconds: 5)
+      ..displayDuration = const Duration(seconds: 2)
       ..radius = 10.0
       ..progressColor = Colors.yellow
       ..backgroundColor = Colors.white
-      ..indicatorColor = appTheme.greenA700
-      ..textColor = appTheme.blueGray500
+      ..indicatorColor = appThemeColors.greenA700
+      ..textColor = appThemeColors.blueGray500
       ..maskColor = Colors.blue.withOpacity(0.5)
       ..userInteractions = false
       ..dismissOnTap = false

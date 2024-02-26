@@ -36,7 +36,7 @@ class SelectOptionToVerifyAccountScreenState
           Text(
             'Select the options below to receive your verification code',
             textAlign: TextAlign.center,
-            style: CustomTextStyles.headlineStyle3,
+            style: CustomTextStyles.headerTextStyle,
           ),
           buildWidgetSpace(height: 30.v),
           buildWidgetSpace(height: 20.v),
@@ -46,10 +46,10 @@ class SelectOptionToVerifyAccountScreenState
               ImageConstant.imgSmartphone,
               fit: BoxFit.contain,
             ),
-            buttonStyle:
-                OutlinedButton.styleFrom(backgroundColor: appTheme.gray50),
-            buttonTextStyle: theme.textTheme.bodySmall?.copyWith(
-              color: appTheme.blueGray700,
+            buttonStyle: OutlinedButton.styleFrom(
+                backgroundColor: appThemeColors.gray50),
+            buttonTextStyle: appThemeData.textTheme.bodySmall?.copyWith(
+              color: appThemeColors.blueGray700,
             ),
             onPressed: () {
               buildNavTo(AppRoutes.verificyAccountScreen);
@@ -62,10 +62,10 @@ class SelectOptionToVerifyAccountScreenState
               ImageConstant.imgMail,
               fit: BoxFit.contain,
             ),
-            buttonStyle:
-                OutlinedButton.styleFrom(backgroundColor: appTheme.gray50),
-            buttonTextStyle: theme.textTheme.bodySmall?.copyWith(
-              color: appTheme.blueGray700,
+            buttonStyle: OutlinedButton.styleFrom(
+                backgroundColor: appThemeColors.gray50),
+            buttonTextStyle: appThemeData.textTheme.bodySmall?.copyWith(
+              color: appThemeColors.blueGray700,
             ),
             onPressed: () {
               buildNavTo(AppRoutes.verificyAccountScreen);

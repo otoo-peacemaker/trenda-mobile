@@ -38,7 +38,7 @@ class _SignInScreenState extends State<SignInScreen> {
         formKey: _formKey,
         children: [
           buildIconWidget('assets/images/img_trenda_logo_up_1.png',
-              size: 74.fSize, color: theme.colorScheme.onSurface),
+              size: 74.fSize, color: appThemeColors.greenA700),
           buildWidgetSpace(height: 40.h),
           Form(
             child: Column(
@@ -57,23 +57,25 @@ class _SignInScreenState extends State<SignInScreen> {
           _buildSignIn(context),
           buildWidgetSpace(),
           buildSignInWithGoogle(context),
-          buildWidgetSpace(),
+          buildWidgetSpace(height: 100.h),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'msg_don_t_have_an_account'.tr,
-                style: CustomTextStyles.headlineStyle3,
+                style: CustomTextStyles.footerTextStyle,
+                textAlign: TextAlign.center,
               ),
-              buildWidgetSpace(height: 100.h),
               TextButton(
-                style: OutlinedButton.styleFrom(
-                    textStyle: theme.textTheme.bodyMedium,
-                    foregroundColor: theme.colorScheme.onSurface),
+                style: CustomButtonStyles.textButtonStyle,
                 onPressed: () {
                   buildNavTo(AppRoutes.signUpScreen);
                 },
-                child: const Text('Sign Up'),
+                child: const Text(
+                  'Sign Up',
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           )
@@ -100,27 +102,39 @@ class _SignInScreenState extends State<SignInScreen> {
                 email: email,
                 password: password,
               );
-              provider
-                  .authenticateUser(
-                      endpoints: login, authRequestBody: loginUser)
-                  .then((value) {
-                if (value != null) {
-                  if (value.success == true) {
-                    PrefUtils.saveAccessToken(value.token!);
-                    NavigatorService.pushNamed(AppRoutes.homepagePage);
+              if (_validateFields(password, email)) {
+                provider
+                    .authenticateUser(
+                        endpoints: login, authRequestBody: loginUser)
+                    .then((value) {
+                  if (value != null) {
+                    if (value.success == true) {
+                      PrefUtils.saveAccessToken(value.token!);
+                      NavigatorService.pushNamed(AppRoutes.homepagePage);
+                    } else {
+                      debugPrint("INSIDE LOGIN::: ${value.success}");
+                      debugPrint("INSIDE Sign up::: ${value.success}");
+                      showCustomSnackBar(context, value.error!, onRetry: () {});
+                    }
                   } else {
-                    debugPrint("INSIDE LOGIN::: ${value.success}");
-                    debugPrint("INSIDE Sign up::: ${value.success}");
-                    showCustomSnackBar(context, value.error!, onRetry: () {});
+                    showCustomSnackBar(context, provider.message);
                   }
-                } else {
-                  showCustomSnackBar(context, provider.message);
-                }
-              });
+                });
+              }
             },
           );
         },
       ),
     );
+  }
+
+  bool _validateFields(String password, String email) {
+    if (password.isNotEmpty && email.isNotEmpty) {
+      return true;
+    } else {
+      showCustomSnackBar(context, 'field(s) can not be empty',
+          changeBgColor: false);
+      return false;
+    }
   }
 }

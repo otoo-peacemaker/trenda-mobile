@@ -34,7 +34,7 @@ class VerifyAccountScreenState extends State<RequestNewScreen> {
           Text(
             'Request New Code',
             textAlign: TextAlign.center,
-            style: CustomTextStyles.headlineStyle3,
+            style: CustomTextStyles.headerTextStyle,
           ),
           buildWidgetSpace(height: 30.v),
           buildEmail(context),

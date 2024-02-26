@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trenda/components/build_widget_components.dart';
 import 'package:trenda/core/app_export.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -33,13 +34,13 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
         children: [
           Text('lbl_enter_code_to_reset_password'.tr,
               textAlign: TextAlign.center,
-              style: CustomTextStyles.headlineStyle3),
+              style: CustomTextStyles.headerTextStyle),
           buildWidgetSpace(height: 30.v),
           buildTextField(context, 'Enter code'),
           buildWidgetSpace(),
           buildPassword(context, string: 'Enter new password'),
           buildWidgetSpace(),
-          buildPassword(context, string: 'Confirm password'),
+          buildConfirmPassword(context, string: 'Confirm password'),
           buildWidgetSpace(height: 20.v),
           _buildResetPassword(context)
         ],

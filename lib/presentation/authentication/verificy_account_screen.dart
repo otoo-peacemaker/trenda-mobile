@@ -34,7 +34,8 @@ class VerifyAccountScreenState extends State<VerifyAccountScreen> {
         children: [
           Text('Enter the verification Code',
               textAlign: TextAlign.center,
-              style: CustomTextStyles.headlineStyle3),
+              maxLines: 2,
+              style: CustomTextStyles.headerTextStyle),
           buildWidgetSpace(height: 30.v),
           CustomPinCodeTextField(
             context: context,

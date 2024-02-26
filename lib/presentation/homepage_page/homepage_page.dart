@@ -27,7 +27,7 @@ class HomepagePageState extends State<HomepagePage>
     super.build(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: appTheme.whiteA70001,
+        backgroundColor: appThemeColors.whiteA70001,
         body: _buildScrollView(context),
       ),
     );
@@ -42,7 +42,7 @@ class HomepagePageState extends State<HomepagePage>
           Container(
             alignment: Alignment.center,
             child: buildIconWidget('assets/images/img_trenda_logo_up_1.png',
-                size: 100.fSize, color: theme.colorScheme.onSurface),
+                size: 100.fSize, color: appThemeColors.greenA700),
           ),
           Text('Welcome to Trenda'),
         ],

@@ -34,8 +34,10 @@ class SignInScreenState extends State<ForgotPasswordScreen> {
         children: [
           Text(
             'Request your password by entering your email below',
+            softWrap: true,
+            maxLines: 3,
             textAlign: TextAlign.center,
-            style: CustomTextStyles.headlineStyle3,
+            style: CustomTextStyles.headerTextStyle,
           ),
           buildWidgetSpace(height: 30.v),
           buildEmail(context),
@@ -46,13 +48,13 @@ class SignInScreenState extends State<ForgotPasswordScreen> {
             children: [
               Text(
                 'Return'.tr,
-                style: theme.textTheme.bodyMedium,
+                style: appThemeData.textTheme.bodyMedium,
               ),
               buildWidgetSpace(height: 100.h),
               TextButton(
                 style: OutlinedButton.styleFrom(
-                    textStyle: theme.textTheme.bodyMedium,
-                    foregroundColor: theme.colorScheme.onSurface),
+                    textStyle: appThemeData.textTheme.bodyMedium,
+                    foregroundColor: appThemeData.colorScheme.onSurface),
                 onPressed: () {
                   buildNavTo(AppRoutes.signUpScreen);
                 },

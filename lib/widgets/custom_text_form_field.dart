@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/app_export.dart';
+import '../theme/styles/custom_textfield_style.dart';
 
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
@@ -27,6 +28,8 @@ class CustomTextFormField extends StatefulWidget {
     this.filled = true,
     this.validator,
     this.showPasswordToggle = true,
+    this.labelText,
+    this.enableLabel = true,
   }) : super(key: key);
 
   final Alignment? alignment;
@@ -42,6 +45,7 @@ class CustomTextFormField extends StatefulWidget {
   final int? maxLines;
   final String? hintText;
   final TextStyle? hintStyle;
+  final String? labelText;
   final Widget? prefix;
   final BoxConstraints? prefixConstraints;
   final Widget? suffix;
@@ -50,6 +54,7 @@ class CustomTextFormField extends StatefulWidget {
   final InputBorder? borderDecoration;
   final Color? fillColor;
   final bool? filled;
+  final bool enableLabel;
   final FormFieldValidator<String>? validator;
   final bool showPasswordToggle;
 
@@ -78,21 +83,25 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           controller: widget.controller,
           focusNode: widget.focusNode ?? FocusNode(),
           autofocus: widget.autofocus!,
-          style: widget.textStyle ?? CustomTextStyles.bodyMediumBluegray700,
+          style: widget.textStyle ?? CustomTextFieldStyle.inputTextStyle,
           obscureText: _obscureText && widget.obscureText!,
           textInputAction: widget.textInputAction!,
           keyboardType: widget.textInputType!,
           maxLines: widget.maxLines ?? 1,
           decoration: _decoration,
           validator: widget.validator,
-          cursorColor: theme.colorScheme.onSurface,
+          cursorColor: appThemeData.colorScheme.primary,
           autovalidateMode: AutovalidateMode.onUserInteraction,
         ),
       );
 
   InputDecoration get _decoration => InputDecoration(
-        hintText: widget.hintText ?? "",
-        hintStyle: widget.hintStyle ?? CustomTextStyles.bodyMediumOnPrimary,
+        label: widget.enableLabel ? Text('${widget.labelText}') : null,
+        labelStyle: CustomTextFieldStyle.labelStyle,
+        helperStyle: CustomTextFieldStyle.helperStyle,
+        hintText: widget.hintText,
+        hintStyle: widget.hintStyle ?? CustomTextFieldStyle.hintStyle,
+        errorStyle: CustomTextFieldStyle.errorStyle,
         prefixIcon: widget.prefix,
         prefixIconConstraints: widget.prefixConstraints,
         suffixIcon: widget.showPasswordToggle ? _suffixIcon : null,
@@ -103,13 +112,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               horizontal: 12.h,
               vertical: 13.v,
             ),
-        fillColor: widget.fillColor ?? appTheme.whiteA70001,
+        fillColor: widget.fillColor ?? appThemeColors.whiteA70001,
         filled: widget.filled,
         border: widget.borderDecoration ??
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.h),
               borderSide: BorderSide(
-                color: theme.colorScheme.onErrorContainer,
+                color: appThemeData.colorScheme.onErrorContainer,
                 width: 1,
               ),
             ),
@@ -117,7 +126,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.h),
               borderSide: BorderSide(
-                color: theme.colorScheme.onErrorContainer,
+                color: appThemeData.colorScheme.onErrorContainer,
                 width: 1,
               ),
             ),
@@ -125,11 +134,15 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.h),
               borderSide: BorderSide(
-                color: theme.colorScheme.onErrorContainer,
+                color: appThemeData.colorScheme.onErrorContainer,
                 width: 1,
               ),
             ),
-        errorText: null, // Initially no error text
+        errorText: null,
+        floatingLabelBehavior: widget.labelText != null
+            ? FloatingLabelBehavior.auto
+            : FloatingLabelBehavior
+                .auto, // Set floatingLabelBehavior// Initially no error text
       );
 
   Widget get _suffixIcon => IconButton(
@@ -140,7 +153,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           _obscureText
               ? 'assets/icons/visibility_off.png'
               : 'assets/icons/visibility_on.png',
-          color: appTheme.blueGray800,
+          color: appThemeColors.blueGray800,
         ),
         onPressed: () {
           setState(() {

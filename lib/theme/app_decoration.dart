@@ -4,15 +4,15 @@ import 'package:trenda/core/app_export.dart';
 class AppDecoration {
   // B decorations
   static BoxDecoration get bg => BoxDecoration(
-        color: appTheme.whiteA700,
+        color: appThemeColors.whiteA700,
       );
 
   // Outline decorations
   static BoxDecoration get outlineBlueGray => BoxDecoration(
-        color: appTheme.blueGray700,
+        color: appThemeColors.blueGray700,
         boxShadow: [
           BoxShadow(
-            color: appTheme.blueGray70014,
+            color: appThemeColors.blueGray70014,
             spreadRadius: 2.h,
             blurRadius: 2.h,
             offset: const Offset(
@@ -24,7 +24,7 @@ class AppDecoration {
       );
   static BoxDecoration get outlineOnErrorContainer => BoxDecoration(
         border: Border.all(
-          color: theme.colorScheme.onErrorContainer,
+          color: appThemeData.colorScheme.onErrorContainer,
           width: 1.h,
         ),
       );
@@ -34,16 +34,16 @@ class AppDecoration {
           begin: const Alignment(0.5, 1.04),
           end: const Alignment(0.5, 0.01),
           colors: [
-            theme.colorScheme.primary.withOpacity(1),
-            theme.colorScheme.onError,
-            theme.colorScheme.primary.withOpacity(0),
+            appThemeData.colorScheme.primary.withOpacity(1),
+            appThemeData.colorScheme.onError,
+            appThemeData.colorScheme.primary.withOpacity(0),
           ],
         ),
       );
 
   // White decorations
   static BoxDecoration get white => BoxDecoration(
-        color: appTheme.whiteA70001,
+        color: appThemeColors.whiteA70001,
       );
 }
 

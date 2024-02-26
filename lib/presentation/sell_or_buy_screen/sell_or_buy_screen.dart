@@ -37,17 +37,26 @@ class SellOrBuyScreenState extends State<SellOrBuyScreen> {
               SizedBox(height: 3.v),
               Text(
                 "msg_what_do_you_want".tr,
-                style: CustomTextStyles.bodyMediumGilroyRegularGreenA700,
+                style: CustomTextStyles.headerTextStyle,
               ),
               SizedBox(height: 34.v),
               CustomElevatedButton(
+                height: 44.v,
+                width: double.maxFinite,
                 text: "lbl_sell".tr,
+                onPressed: () {
+                  showLoadingAndNavigate(context, AppRoutes.signInScreen);
+                },
               ),
               SizedBox(height: 16.v),
               CustomElevatedButton(
+                height: 44.v,
+                width: double.maxFinite,
                 text: "lbl_buy".tr,
-                buttonStyle: CustomButtonStyles.outlineGreenATL8,
-                buttonTextStyle: CustomTextStyles.bodyMediumOnPrimaryContainer,
+                buttonStyle: CustomButtonStyles.buyButtonStyle,
+                onPressed: () {
+                  showLoadingAndNavigate(context, AppRoutes.signInScreen);
+                },
               ),
             ],
           ),

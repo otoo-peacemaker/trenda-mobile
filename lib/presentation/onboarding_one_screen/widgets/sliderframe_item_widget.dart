@@ -18,7 +18,7 @@ class SliderframeItemWidget extends StatelessWidget {
       children: [
         Text(
           "msg_one_stop_shopping".tr,
-          style: theme.textTheme.titleLarge,
+          style: appThemeData.textTheme.titleLarge,
         ),
         SizedBox(height: 7.v),
         SizedBox(

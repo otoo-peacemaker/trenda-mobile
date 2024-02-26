@@ -20,7 +20,7 @@ class SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(const Duration(milliseconds: 3000), () {
       NavigatorService.popAndPushNamed(
-        AppRoutes.onboardingTwoScreen,
+        AppRoutes.sellOrBuyScreen,
       );
     });
   }
@@ -29,14 +29,15 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: theme.colorScheme.onSecondaryContainer,
+        backgroundColor: appThemeData.colorScheme.onSecondaryContainer,
         body: SizedBox(
           width: double.maxFinite,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 4.v),
-              Text("lbl_trenda".tr, style: theme.textTheme.headlineLarge)
+              Text("lbl_trenda".tr,
+                  style: CustomTextStyles.splashTitleTextStyle)
             ],
           ),
         ),

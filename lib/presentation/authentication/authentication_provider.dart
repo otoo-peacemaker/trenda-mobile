@@ -11,10 +11,12 @@ class AuthenticationProvider extends ChangeNotifier {
   AuthenticationResponseBody? _authResponse;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
 
   bool rememberMe = false;
+  bool acceptTerms = false;
   Country? selectedCountry;
 
   String get message => _message;
@@ -94,6 +96,11 @@ class AuthenticationProvider extends ChangeNotifier {
 
   void changeCheckBox1(bool value) {
     rememberMe = value;
+    notifyListeners();
+  }
+
+  void changeCheckBox2(bool value) {
+    acceptTerms = value;
     notifyListeners();
   }
 

@@ -24,7 +24,7 @@ class CustomPhoneNumber extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.h),
-        border: Border.all(color: theme.colorScheme.onErrorContainer),
+        border: Border.all(color: appThemeData.colorScheme.onErrorContainer),
       ),
       child: Row(
         children: [
@@ -36,7 +36,7 @@ class CustomPhoneNumber extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(
                   right: BorderSide(
-                    color: theme.colorScheme.onErrorContainer,
+                    color: appThemeData.colorScheme.onErrorContainer,
                     width: 1.h,
                   ),
                 ),
@@ -73,6 +73,7 @@ class CustomPhoneNumber extends StatelessWidget {
               child: CustomTextFormField(
                 width: 237.v,
                 controller: controller,
+                enableLabel: false,
                 hintText: "msg_enter_phone_number".tr,
                 textInputType: TextInputType.phone,
                 showPasswordToggle: false,

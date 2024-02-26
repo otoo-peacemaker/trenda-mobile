@@ -64,8 +64,9 @@ class OnboardingOneScreenState extends State<OnboardingOneScreen> {
                                   count: 3,
                                   effect: ScrollingDotsEffect(
                                       spacing: 12,
-                                      activeDotColor: appTheme.greenA200,
-                                      dotColor: theme.colorScheme.onPrimary,
+                                      activeDotColor: appThemeColors.greenA200,
+                                      dotColor:
+                                          appThemeData.colorScheme.onPrimary,
                                       dotHeight: 8.v,
                                       dotWidth: 9.h),
                                 ),
@@ -78,7 +79,7 @@ class OnboardingOneScreenState extends State<OnboardingOneScreen> {
                                   padding: EdgeInsets.only(
                                       left: 87.h, top: 4.v, bottom: 7.v),
                                   child: Text("lbl_next".tr,
-                                      style: theme.textTheme.bodyLarge),
+                                      style: appThemeData.textTheme.bodyLarge),
                                 ),
                               )
                             ],

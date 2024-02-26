@@ -10,12 +10,12 @@ export 'package:trenda/data/models/selectionPopupModel/selection_popup_model.dar
 export 'package:trenda/localization/app_localization.dart';
 export 'package:trenda/routes/app_routes.dart';
 export 'package:trenda/theme/app_decoration.dart';
-export 'package:trenda/theme/custom_text_style.dart';
+export 'package:trenda/theme/styles/custom_text_style.dart';
 export 'package:trenda/theme/theme_helper.dart';
 export 'package:trenda/widgets/custom_image_view.dart';
 export 'package:provider/provider.dart';
 export '../theme/provider/theme_provider.dart';
-export '../theme/custom_button_style.dart';
+export '../theme/styles/custom_button_style.dart';
 export 'package:trenda/core/utils/date_time_utils.dart';
 export '../components/build_scaffold.dart';
 export '../components/buildSignInWithFacebook.dart';

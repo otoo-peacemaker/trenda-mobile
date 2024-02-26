@@ -44,7 +44,7 @@ PreferredSizeWidget _buildAppBar(BuildContext context, String appbarTitle) {
     ),
     centerTitle: true,
     leadingWidth: 33.h,
-    iconTheme: IconThemeData(color: appTheme.blueGray700),
+    iconTheme: IconThemeData(color: appThemeColors.blueGray700),
   );
 }
 /*

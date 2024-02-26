@@ -44,7 +44,7 @@ class CustomOutlinedButton extends BaseButton {
         margin: margin,
         decoration: decoration,
         child: OutlinedButton(
-          style: buttonStyle,
+          style: buttonStyle ?? CustomButtonStyles.primaryButtonStyle,
           onPressed: isDisabled ?? false ? null : onPressed ?? () {},
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +53,6 @@ class CustomOutlinedButton extends BaseButton {
               leftIcon ?? const SizedBox.shrink(),
               Text(
                 text,
-                style: buttonTextStyle ?? theme.textTheme.bodyMedium,
               ),
               rightIcon ?? const SizedBox.shrink(),
             ],

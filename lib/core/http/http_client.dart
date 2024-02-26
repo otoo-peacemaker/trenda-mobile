@@ -14,7 +14,7 @@ class HttpAPIDioClient {
 
   HttpAPIDioClient() {
     // _apiInterceptor.addInterceptorsWrapper();
-    //  _apiInterceptor.addLogInterceptor();
+    _apiInterceptor.addLogInterceptor();
   }
 
 /*
