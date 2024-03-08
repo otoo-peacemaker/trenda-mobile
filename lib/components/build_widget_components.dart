@@ -144,6 +144,7 @@ Widget buildRememberMeWithForgotPassword(
       style: CustomButtonStyles.textButtonStyle,
       child: Text(
         "lbl_forgot_password".tr,
+        //style: CustomTextStyles.textBelowBtnTextStyle(color),
       ),
     )
   ]);

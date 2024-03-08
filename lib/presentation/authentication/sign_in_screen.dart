@@ -1,11 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
-import 'package:trenda/data/models/auth/response_model.dart';
-import 'package:trenda/data/repository/authentication_repository.dart';
-import 'package:trenda/presentation/homepage_page/homepage_page.dart';
-
-import '../../data/models/auth/request_model.dart';
+import 'models/auth/request_model.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -110,7 +106,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   if (value != null) {
                     if (value.success == true) {
                       PrefUtils.saveAccessToken(value.token!);
-                      NavigatorService.pushNamed(AppRoutes.homepagePage);
+                      NavigatorService.pushNamed(AppRoutes.homepageContainer);
                     } else {
                       debugPrint("INSIDE LOGIN::: ${value.success}");
                       debugPrint("INSIDE Sign up::: ${value.success}");

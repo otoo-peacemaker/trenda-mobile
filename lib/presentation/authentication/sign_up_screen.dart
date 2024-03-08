@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
-import '../../data/models/auth/request_model.dart';
+
+import 'models/auth/request_model.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

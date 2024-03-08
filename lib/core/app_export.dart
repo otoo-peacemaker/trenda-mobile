@@ -22,7 +22,7 @@ export '../components/buildSignInWithFacebook.dart';
 export 'package:trenda/widgets/custom_text_button.dart';
 export 'package:trenda/components/build_widget_components.dart';
 export 'package:trenda/components/buildSignInWithGoogle.dart';
-export 'package:trenda/presentation/authentication/authentication_provider.dart';
+export 'package:trenda/presentation/authentication/provider/authentication_provider.dart';
 export 'package:trenda/widgets/custom_outlined_button.dart';
 export 'package:trenda/core/http/network_result.dart';
 export 'package:trenda/core/http/api_response.dart';

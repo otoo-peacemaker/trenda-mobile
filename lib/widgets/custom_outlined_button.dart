@@ -3,7 +3,7 @@ import '../core/app_export.dart';
 import 'base_button.dart';
 
 class CustomOutlinedButton extends BaseButton {
-  CustomOutlinedButton({
+  const CustomOutlinedButton({
     super.key,
     this.decoration,
     this.leftIcon,
@@ -39,7 +39,7 @@ class CustomOutlinedButton extends BaseButton {
   }
 
   Widget get buildOutlinedButtonWidget => Container(
-        height: height ?? 44.v,
+        height: height ?? 44.h,
         width: width ?? double.maxFinite,
         margin: margin,
         decoration: decoration,

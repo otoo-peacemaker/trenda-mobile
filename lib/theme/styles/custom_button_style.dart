@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trenda/theme/colors/primary_colors.dart';
 import '../../core/app_export.dart';
 
 /// A class that offers pre-defined button styles for customizing button appearance.

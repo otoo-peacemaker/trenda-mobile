@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:trenda/presentation/authentication/forgot_password.dart';
 import 'package:trenda/presentation/authentication/select_option_to_verify_account_screen.dart';
-import 'package:trenda/presentation/homepage_page/homepage_page.dart';
 import 'package:trenda/presentation/authentication/sign_up_screen.dart';
 import 'package:trenda/presentation/authentication/sign_in_screen.dart';
 import 'package:trenda/presentation/authentication/verificy_account_screen.dart';
+import 'package:trenda/presentation/product_details/product_profile_details.dart';
 import 'package:trenda/presentation/request_new_code_screen/request_new_code_screen.dart';
 import 'package:trenda/presentation/authentication/reset_password_screen.dart';
 import 'package:trenda/presentation/app_navigation_screen/app_navigation_screen.dart';
-
+import '../presentation/explore_categories/explore_product_categories.dart';
+import '../presentation/homepage_container/homepage_container.dart';
 import '../presentation/onboarding/onboarding_frame_screen.dart';
-import '../presentation/onboarding_one_screen/onboarding_one_screen.dart';
+import '../presentation/product_details/product_details_page.dart';
 import '../presentation/sell_or_buy_screen/sell_or_buy_screen.dart';
 import '../presentation/splash_screen/splash_screen.dart';
 
@@ -35,13 +36,17 @@ class AppRoutes {
 
   static const String resetPasswordScreen = '/reset_password_screen';
 
-  static const String homepagePage = '/homepage_page';
+  static const String homepageContainer = '/homepage_page';
 
   static const String homepageTabContainerScreen =
       '/homepage_tab_container_screen';
+  static const String homepage = '/homepage_latest_tab_container_page';
 
   static const String appNavigationScreen = '/app_navigation_screen';
   static const String forgotPasswordScreen = '/forgot_password';
+  static const String exploreCategory = '/explore_product_categories';
+  static const String productDetailsPage = '/product_details_page';
+  static const String productProfileDetailsPage = '/product_profile_details';
 
   static Map<String, WidgetBuilder> get routes => {
         appNavigationScreen: AppNavigationScreen.builder,
@@ -56,7 +61,10 @@ class AppRoutes {
         requestNewCodeScreen: RequestNewCodeScreen.builder,
         resetPasswordScreen: ResetPasswordScreen.builder,
         forgotPasswordScreen: ForgotPasswordScreen.builder,
-        homepagePage: HomepagePage.builder,
+        homepageContainer: HomepagePageContainer.builder,
+        exploreCategory: ExploreProductCategory.builder,
+        productDetailsPage: ProductDetailsPage.builder,
+        productProfileDetailsPage: ProductProfileDetailsPage.builder,
 
         // splashScreen: SplashScreen.builder,
       };

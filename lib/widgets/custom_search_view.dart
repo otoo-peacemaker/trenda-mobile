@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../core/app_export.dart';
 
 class CustomSearchView extends StatelessWidget {
-  CustomSearchView({
-    Key? key,
+  const CustomSearchView({
+    super.key,
     this.alignment,
     this.width,
     this.scrollPadding,
@@ -25,9 +25,7 @@ class CustomSearchView extends StatelessWidget {
     this.filled = true,
     this.validator,
     this.onChanged,
-  }) : super(
-          key: key,
-        );
+  });
 
   final Alignment? alignment;
 
@@ -108,6 +106,7 @@ class CustomSearchView extends StatelessWidget {
             Container(
               margin: EdgeInsets.fromLTRB(12.h, 12.v, 8.h, 12.v),
               child: CustomImageView(
+                color: Colors.grey.shade600,
                 imagePath: ImageConstant.imgSearch,
                 height: 20.adaptSize,
                 width: 20.adaptSize,
@@ -117,19 +116,27 @@ class CustomSearchView extends StatelessWidget {
             BoxConstraints(
               maxHeight: 44.v,
             ),
-        suffixIcon: suffix ??
-            Padding(
-              padding: EdgeInsets.only(
-                right: 15.h,
-              ),
-              child: IconButton(
+        suffixIcon: controller?.value.text != null
+            ? suffix ??
+                Padding(
+                  padding: EdgeInsets.only(
+                    right: 15.h,
+                  ),
+                  child: IconButton(
+                    onPressed: () => controller!.clear(),
+                    icon: Icon(
+                      Icons.clear,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                )
+            : IconButton(
                 onPressed: () => controller!.clear(),
-                icon: Icon(
+                icon: const Icon(
                   Icons.clear,
-                  color: Colors.grey.shade600,
+                  color: Colors.transparent,
                 ),
               ),
-            ),
         suffixIconConstraints: suffixConstraints ??
             BoxConstraints(
               maxHeight: 44.v,

@@ -2,9 +2,8 @@ import 'package:country_pickers/country.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
-import '../../core/utils/progress_dialog_utils.dart';
-import '../../data/models/auth/request_model.dart';
-import '../../data/models/auth/response_model.dart';
+import '../models/auth/request_model.dart';
+import '../models/auth/response_model.dart';
 
 class AuthenticationProvider extends ChangeNotifier {
   HttpAPIDioClient apiDioClient = HttpAPIDioClient();

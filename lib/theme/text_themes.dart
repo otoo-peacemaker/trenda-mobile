@@ -46,8 +46,8 @@ class TextThemes {
         bodyLarge: TextStyle(
           color: colorScheme.onPrimaryContainer,
           fontSize: 18.fSize,
-          fontFamily: 'Gilroy-Regular',
-          fontWeight: FontWeight.w400,
+          fontFamily: 'Gilroy-Bold',
+          fontWeight: FontWeight.w500,
         ),
         titleSmall: TextStyle(
           color: colorScheme.primary,

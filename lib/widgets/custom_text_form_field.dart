@@ -162,3 +162,53 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         },
       );
 }
+
+/// Extension on [CustomTextFormField] to facilitate inclusion of all types of border style etc
+extension TextFormFieldStyleHelper on CustomTextFormField {
+  static OutlineInputBorder get fillCyan => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(2.h),
+        borderSide: BorderSide.none,
+      );
+  static OutlineInputBorder get outlineBlueGray => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.h),
+        borderSide: BorderSide(
+          color: appThemeColors.blueGray100,
+          width: 1,
+        ),
+      );
+  static OutlineInputBorder get outlineBlueGrayTL8 => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.h),
+        borderSide: BorderSide(
+          color: appThemeColors.blueGray500,
+          width: 1,
+        ),
+      );
+  static OutlineInputBorder get outlineRed => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.h),
+        borderSide: BorderSide(
+          color: appThemeColors.red500,
+          width: 1,
+        ),
+      );
+  static OutlineInputBorder get outlineBlueGrayTL82 => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.h),
+        borderSide: BorderSide(
+          color: appThemeColors.blueGray500,
+          width: 1,
+        ),
+      );
+  static OutlineInputBorder get outlineBlueGrayTL83 => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.h),
+        borderSide: BorderSide(
+          color: appThemeColors.blueGray500,
+          width: 1,
+        ),
+      );
+  static OutlineInputBorder get outlineBlueGrayTL84 => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.h),
+        borderSide: BorderSide(
+          color: appThemeColors.blueGray100,
+          width: 1,
+        ),
+      );
+}

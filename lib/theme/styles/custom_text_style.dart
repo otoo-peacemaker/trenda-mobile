@@ -27,6 +27,10 @@ class CustomTextStyles {
         color: const Color(0xFF344053),
       );
 
+  static get itemHeaderTextStyle => appThemeData.textTheme.bodyLarge?.copyWith(
+        color: appThemeColors.greenA700,
+      );
+
   static get footerTextStyle => appThemeData.textTheme.bodySmall?.copyWith(
         height: 0.10.h,
         fontWeight: FontWeight.w400,
@@ -36,7 +40,7 @@ class CustomTextStyles {
   static get noticeTextStyle => appThemeData.textTheme.displayLarge?.copyWith(
         height: 0.10.h,
         fontWeight: FontWeight.w400,
-        color: appThemeColors.blueGray8001,
+        color: appThemeColors.blueGray800,
       );
 
   static get noticeLinkTextStyle =>
@@ -183,6 +187,20 @@ class CustomTextStyles {
       color: appThemeColors.whiteA700,
       fontSize: 12.fSize,
       fontWeight: FontWeight.w100);
+
+  static get belowButtonTextStyle => appThemeData.textTheme.bodySmall?.copyWith(
+        color: appThemeColors.whiteA700,
+        fontSize: 13.fSize,
+        fontWeight: FontWeight.w500,
+      );
+
+  static textBelowBtnTextStyle(Color? color) {
+    return appThemeData.textTheme.bodySmall?.copyWith(
+      color: color,
+      fontSize: 13.fSize,
+      fontWeight: FontWeight.w500,
+    );
+  }
 }
 
 extension on TextStyle {

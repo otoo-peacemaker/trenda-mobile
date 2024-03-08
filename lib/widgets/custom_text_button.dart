@@ -4,63 +4,55 @@ import '../core/app_export.dart';
 import 'base_button.dart';
 
 class CustomTextButton extends BaseButton {
-  CustomTextButton(
-    this.children,
-    this.label, {
+  const CustomTextButton({
     super.key,
-    this.decoration,
     this.leftIcon,
     this.rightIcon,
-    super.onPressed,
-    super.buttonStyle,
-    super.buttonTextStyle,
     super.isDisabled,
-    super.alignment,
     super.height,
     super.width,
     super.margin,
     required super.text,
-    this.strokeColor,
-    this.cornerRadius,
-    required style,
+    this.textColor,
+    super.buttonStyle,
+    required this.style,
+    super.alignment = Alignment
+        .centerLeft, // Add alignment parameter with default value// Add buttonStyle parameter
   });
 
-  final BoxDecoration? decoration;
-  final Color? strokeColor;
-  final double? cornerRadius;
   final Widget? leftIcon;
   final Widget? rightIcon;
-  final Widget label;
-  final List<Widget> children;
+  final Color? textColor;
+  final dynamic style; // Adjusted to match the constructor
 
   @override
   Widget build(BuildContext context) {
-    return alignment != null
-        ? Align(
-            alignment: alignment ?? Alignment.center,
-            child: buildTextButtonWidget(),
-          )
-        : buildTextButtonWidget();
+    return Align(
+      alignment: super.alignment!,
+      child: buildTextButtonWidget(),
+    );
   }
 
   Widget buildTextButtonWidget() {
-    return Container(
-      height: height ?? 44.v,
-      width: width ?? double.maxFinite,
-      margin: margin,
-      decoration: decoration?.copyWith(
-        border: Border.all(color: strokeColor ?? Colors.transparent),
-        borderRadius: BorderRadius.circular(cornerRadius ?? 0),
+    return ElevatedButton.icon(
+      onPressed: isDisabled ?? false ? null : onPressed,
+      icon: leftIcon ??
+          const SizedBox(), // Use leftIcon or SizedBox() if leftIcon is null
+      label: Text(
+        text,
+        textAlign: TextAlign.left,
+        style: CustomTextStyles.noticeTextStyle
+            .copyWith(color: textColor, fontSize: 10.fSize),
       ),
-      child: TextButton(
-        style: buttonStyle,
-        onPressed: isDisabled ?? false ? null : onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: children,
-        ),
-      ),
+      style: buttonStyle ??
+          ElevatedButton.styleFrom(
+            padding: EdgeInsets.all(5.adaptSize),
+            side: const BorderSide(
+              color: Colors.grey,
+            ),
+            disabledBackgroundColor: Colors
+                .transparent, // Set default background color to transparent
+          ),
     );
   }
 }

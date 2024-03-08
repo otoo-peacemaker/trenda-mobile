@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:trenda/core/app_export.dart';
-import 'package:trenda/data/models/auth/request_model.dart';
-import '../models/auth/response_model.dart';
+import '../../presentation/authentication/models/auth/request_model.dart';
+import '../../presentation/authentication/models/auth/response_model.dart';
 
 class AuthenticationRepository extends BaseApiResponse {
   HttpAPIDioClient apiDioClient = HttpAPIDioClient();
