@@ -1,13 +1,8 @@
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/utils/utils.dart';
-import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
 import 'package:trenda/core/utils/validation_functions.dart';
-import 'package:trenda/widgets/custom_checkbox_button.dart';
-import 'package:trenda/widgets/custom_text_form_field.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../widgets/custom_phone_number.dart';
 
 /// Section Widget
 Widget buildEmail(BuildContext context) {

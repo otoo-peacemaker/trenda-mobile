@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
-import '../widgets/custom_outlined_button.dart';
 
 Widget buildSignInWithGoogle(BuildContext context) {
   return CustomOutlinedButton(
@@ -13,7 +11,7 @@ Widget buildSignInWithGoogle(BuildContext context) {
       backgroundColor: Colors.transparent,
     ),
     onPressed: () {
-      print('login press');
+      debugPrint('login press');
     },
   );
 }

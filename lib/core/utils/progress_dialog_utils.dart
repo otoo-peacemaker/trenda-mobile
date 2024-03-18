@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
 
 class ProgressDialogUtils {
   static bool isProgressVisible = false;
 
   ///common method for showing progress dialog
-  static void showProgressDialog(
+  static Future<Widget?> showProgressDialog(
       {BuildContext? context, isCancellable = false}) async {
     if (!isProgressVisible &&
         NavigatorService.navigatorKey.currentState?.overlay?.context != null) {
@@ -24,6 +23,7 @@ class ProgressDialogUtils {
           });
       isProgressVisible = true;
     }
+    return null;
   }
 
   ///common method for hiding progress dialog

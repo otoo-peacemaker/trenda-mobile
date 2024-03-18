@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 // import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:trenda/components/build_widget_components.dart';
 import 'package:trenda/core/app_export.dart';
 
 import '../onboarding_one_screen/provider/onboarding_one_provider.dart';
@@ -77,7 +75,7 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(title: Text('Manually controlled slider')),
+      appBar: AppBar(title: const Text('Manually controlled slider')),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

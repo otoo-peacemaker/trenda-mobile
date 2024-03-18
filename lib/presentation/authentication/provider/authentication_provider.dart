@@ -38,19 +38,6 @@ class AuthenticationProvider extends ChangeNotifier {
             debugPrint("::::::::::BODY ${request.data}");
             _authResponse = AuthenticationResponseBody.fromJson(request.data);
             break;
-          case 400:
-            // Handle Bad Request
-            break;
-          case 401:
-            // Handle Unauthorized
-            break;
-          case 403:
-            // Handle Forbidden
-            break;
-          case 404:
-            // Handle Not Found
-            break;
-          // Add more cases as needed
           default:
             // Handle other status codes
             break;

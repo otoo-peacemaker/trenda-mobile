@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
-import 'package:trenda/widgets/app_bar/custom_app_bar.dart';
-import 'package:trenda/widgets/custom_checkbox_button.dart';
-import 'package:trenda/widgets/custom_outlined_button.dart';
-import 'package:trenda/widgets/custom_text_form_field.dart';
 import 'package:trenda/domain/facebookauth/facebook_auth_helper.dart';
 
 Widget _buildSignInWithFacebook(BuildContext context) {

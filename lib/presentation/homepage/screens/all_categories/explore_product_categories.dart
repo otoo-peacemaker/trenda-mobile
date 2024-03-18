@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart';
-import '../../core/app_export.dart';
-import '../homepage_container/home_page/homepage.dart';
-import '../homepage_container/home_page/provider/homepage_provider.dart';
+import '../../../../core/app_export.dart';
+import '../../homepage.dart';
+import '../homepage_product_list.dart';
 
 class ExploreProductCategory extends StatefulWidget {
   const ExploreProductCategory({super.key});
 
   @override
   State<ExploreProductCategory> createState() => _ExploreProductCategoryState();
+
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => HomepageProvider(),
+      create: (context) => HomePageProvider(),
       child: const ExploreProductCategory(),
     );
   }
@@ -152,7 +152,20 @@ class _ExploreProductCategoryState extends State<ExploreProductCategory>
                       ],
                     ),
                     buildWidgetSpace(height: 10.h),
-                    buildTabBarView(context, tabviewController),
+                    buildTabBarView(context, tabviewController, [
+                      HomePageProductList.builder(
+                        context,
+                      ), //HomepageTopListingsPage
+                      HomePageProductList.builder(
+                        context,
+                      ), //HomepageTopListingsPage
+                      HomePageProductList.builder(
+                        context,
+                      ),
+                      HomePageProductList.builder(
+                        context,
+                      ), //HomepageLatestOnePage
+                    ]),
                   ],
                 ),
               ),

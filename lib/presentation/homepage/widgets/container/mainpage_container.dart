@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
-import '../../widgets/bottom_bar/bottom_bar_enum.dart';
-import '../../widgets/bottom_bar/custom_bottom_bar.dart';
-import 'home_page/homepage.dart';
-import 'provider/homepage_provider.dart';
+
+import '../../homepage.dart';
+import '../../provider/homepage_provider.dart';
 
 // ignore_for_file: must_be_immutable
 class HomepagePageContainer extends StatefulWidget {
@@ -14,7 +13,7 @@ class HomepagePageContainer extends StatefulWidget {
 
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => HomepageProvider(),
+      create: (context) => HomePageProvider(),
       child: const HomepagePageContainer(),
     );
   }

@@ -61,13 +61,13 @@ class ApiInterceptor {
   // Handle response
   void handleResponse(Response<dynamic> response) {
     // Handle response logic
-    print("Handling response: ${response.data}");
+    debugPrint("Handling response: ${response.data}");
   }
 
   // Handle error
   void handleError(DioException error) {
     // Handle error logic
-    print("Handling Trenda Api error: $error");
+    debugPrint("Handling Trenda Api error: $error");
     // You can implement logic to refresh token here if needed
   }
 }

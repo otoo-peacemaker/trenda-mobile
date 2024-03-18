@@ -1,12 +1,6 @@
-import 'package:flexi_productimage_slider/flexi_productimage_slider.dart';
-import 'package:flutter/material.dart';
-import 'package:gallery_zoom_slides/gallery_zoom_slides.dart';
 import 'package:trenda/core/app_export.dart';
-
-import '../../widgets/custom_icon_button.dart';
-import '../homepage_container/home_page/homepage.dart';
-import '../homepage_container/home_page/provider/homepage_provider.dart';
-import '../homepage_container/latest/homepage_latest_page.dart';
+import 'package:trenda/presentation/homepage/models/response_models/get_all_posting_response_body.dart';
+import '../../homepage.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   const ProductDetailsPage({super.key});
@@ -16,7 +10,7 @@ class ProductDetailsPage extends StatefulWidget {
 
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => HomepageProvider(),
+      create: (context) => HomePageProvider(),
       child: const ProductDetailsPage(),
     );
   }
@@ -25,7 +19,7 @@ class ProductDetailsPage extends StatefulWidget {
 class _ProductDetailsPageState extends State<ProductDetailsPage>
     with TickerProviderStateMixin {
   late TabController tabviewController;
-  late Item _item;
+  late PostingDataResponse _item;
 
   @override
   void initState() {
@@ -35,7 +29,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
 
   @override
   Widget build(BuildContext context) {
-    final Item item = ModalRoute.of(context)?.settings.arguments as Item;
+    final PostingDataResponse item =
+        ModalRoute.of(context)?.settings.arguments as PostingDataResponse;
     _item = item;
     final List<String> labels = [
       'Chip 1',
@@ -75,7 +70,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
               _buildPreviewProductImg(),
               SizedBox(
                 height: 200.adaptSize,
-                child: _buildDetailFrame(context, item),
+                child: _buildDetailFrame(context, _item),
               ),
               _buildFeatures(context),
               buildWidgetSpace(),
@@ -92,13 +87,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
   }
 
   Widget _buildPreviewProductImg() {
-    final List<String> images = [
-      "https://i.ibb.co/ZLFHX3F/1.png",
-      "https://i.ibb.co/JKJvs5S/2.png",
-      "https://i.ibb.co/LCzV7b3/3.png",
-      "https://i.ibb.co/L8JHn1L/4.png",
-      "https://i.ibb.co/7RWNCXH/5.png",
-    ];
+    final List<String> images = [];
+    _item.uploadedFiles?.forEach((element) {
+      images.add(element.url!);
+    });
+
     return flexiProductimageSlider(
       //required fields
       arrayImages: images,
@@ -107,9 +100,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
       sliderStyle: SliderStyle.nextToSlider,
       //.overSlider, .nextToSlider
       // set you slider height like 1.0,1.5,2.0 etc...
-      aspectRatio: 1.9.adaptSize,
+      aspectRatio: 1.0.adaptSize,
       //set content mode of image
-      boxFit: BoxFit.fill,
+      boxFit: BoxFit.cover,
       //set this if you want to set any default image index when it loads
       selectedImagePosition: 0,
       //set your thumbnail alignment
@@ -149,7 +142,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
     );
   }
 
-  Widget _buildDetailFrame(BuildContext context, Item item) {
+  Widget _buildDetailFrame(BuildContext context, PostingDataResponse item) {
+    bool isBookedMarked = false;
     return Container(
       padding: EdgeInsets.fromLTRB(16.h, 12.v, 16.h, 11.v),
       decoration: AppDecoration.outlineBluegray501,
@@ -166,7 +160,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                   bottom: 5.v,
                 ),
                 child: Text(
-                  "msg_nike_air_sneaker".tr,
+                  "${item.postTitle}".tr,
                   style: CustomTextStyles.textButtonTextStyle,
                 ),
               ),
@@ -175,14 +169,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                 shape: CircleBorder(
                     side: BorderSide(color: appThemeColors.whiteA700)),
                 child: IconButton(
-                  color: item.isBookedMarked
+                  color: isBookedMarked
                       ? appThemeColors.greenA400
                       : appThemeColors.gray400,
                   icon: const Icon(Icons.bookmark_border),
                   onPressed: () {
                     // Handle bookmark action
                     setState(() {
-                      item.isBookedMarked = !item.isBookedMarked;
+                      isBookedMarked = !isBookedMarked;
                     });
                   },
                 ),
@@ -192,7 +186,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
           Row(
             children: [
               Text(
-                "lbl_ghs3002".tr,
+                "Ghc ${item.amount}".tr,
                 style: CustomTextStyles.bodyMediumGilroyRegular
                     .copyWith(color: appThemeColors.greenA700),
               ),
@@ -202,7 +196,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                   top: 4.v,
                 ),
                 child: Text(
-                  "lbl_negotiable".tr,
+                  "Negotiable: ${item.negotiable}".tr,
                   style: CustomTextStyles.bodySmallBlueGray900,
                 ),
               ),
@@ -225,7 +219,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                     top: 2.v,
                   ),
                   child: Text(
-                    "msg_kejetia_ashanti".tr,
+                    "${item.address}".tr,
                     style: CustomTextStyles.noticeTextStyle,
                   ),
                 ),
@@ -246,7 +240,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                   left: 16.h,
                 ),
                 child: Text(
-                  "lbl_234_views".tr,
+                  "${item.postViews} Views".tr,
                   style: CustomTextStyles.noticeTextStyle,
                 ),
               ),

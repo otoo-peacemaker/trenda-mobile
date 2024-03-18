@@ -1,13 +1,7 @@
-import 'package:trenda/presentation/homepage_container/home_page/provider/homepage_provider.dart';
-import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
-
-import '../../widgets/app_bar/appbar_leading_image.dart';
-import '../../widgets/app_bar/appbar_title_image.dart';
-import '../../widgets/app_bar/appbar_trailing_image.dart';
-import '../../widgets/app_bar/custom_app_bar.dart';
-import '../../widgets/custom_icon_button.dart';
-import '../homepage_container/latest/homepage_latest_page.dart';
+import '../../dumy_data.dart';
+import '../../models/response_models/get_all_posting_response_body.dart';
+import '../homepage_product_list.dart';
 
 class ProductProfileDetailsPage extends StatefulWidget {
   const ProductProfileDetailsPage({super.key});
@@ -18,17 +12,19 @@ class ProductProfileDetailsPage extends StatefulWidget {
 
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => HomepageProvider(),
+      create: (context) => HomePageProvider(),
       child: const ProductProfileDetailsPage(),
     );
   }
 }
 
 class _ProductProfileDetailsState extends State<ProductProfileDetailsPage> {
+  late PostingDataResponse _item;
+
   @override
   Widget build(BuildContext context) {
-    final Item item = ModalRoute.of(context)?.settings.arguments as Item;
-    debugPrint(':::::::::::::::::::::::$item');
+    _item = ModalRoute.of(context)?.settings.arguments as PostingDataResponse;
+    debugPrint(':::::::::::::::::::::::$_item');
     final List<String> labels = [
       'Chip 1',
       'Chip 2',
@@ -465,118 +461,7 @@ class _ProductProfileDetailsState extends State<ProductProfileDetailsPage> {
   }
 
   Widget _buildMyShopListings(BuildContext context) {
-    List<Item> item = [
-      Item(
-          title: 'Item 1',
-          imageUrl: ImageConstant.imgFrame60,
-          description: 'Description for Item 1',
-          price: 10.0,
-          tag: 'Tag 1',
-          condition: 'New',
-          type: 'Laptop',
-          isBookedMarked: true),
-      Item(
-          title: 'Item 2',
-          imageUrl: ImageConstant.imgFrame601,
-          description: 'Description for Item 2',
-          price: 20.0,
-          tag: 'Tag 2',
-          condition: 'Home Used',
-          type: 'Vehicle',
-          isBookedMarked: false),
-      Item(
-          title: 'Item 1',
-          imageUrl: ImageConstant.imgFrame6012,
-          description: 'Description for Item 1',
-          price: 10.0,
-          tag: 'Tag 1',
-          condition: 'New',
-          type: 'Vehicle',
-          isBookedMarked: false),
-      Item(
-          title: 'Item 2',
-          imageUrl: ImageConstant.imgFrame6013,
-          description: 'Description for Item 2',
-          price: 20.0,
-          tag: 'Tag 2',
-          condition: 'Used',
-          type: 'Vehicle',
-          isBookedMarked: true),
-      Item(
-          title: 'Item 1',
-          imageUrl: ImageConstant.imgFrame6014,
-          description: 'Description for Item 1',
-          price: 10.0,
-          tag: 'Tag 1',
-          condition: 'New',
-          type: 'Vehicle',
-          isBookedMarked: false),
-      Item(
-          title: 'Item 2',
-          imageUrl: ImageConstant.imgFrame60,
-          description: 'Description for Item 2',
-          price: 20.0,
-          tag: 'Tag 2',
-          condition: 'Used',
-          type: 'Vehicle',
-          isBookedMarked: false),
-
-      Item(
-          title: 'Item 1',
-          imageUrl: ImageConstant.imgFrame60,
-          description: 'Description for Item 1',
-          price: 10.0,
-          tag: 'Tag 1',
-          condition: 'New',
-          type: 'Vehicle',
-          isBookedMarked: false),
-      Item(
-          title: 'Item 2',
-          imageUrl: ImageConstant.imgFrame601,
-          description: 'Description for Item 2',
-          price: 20.0,
-          tag: 'Tag 2',
-          condition: 'Used',
-          type: 'Vehicle',
-          isBookedMarked: false),
-      Item(
-          title: 'Item 1',
-          imageUrl: ImageConstant.imgFrame6012,
-          description: 'Description for Item 1',
-          price: 10.0,
-          tag: 'Tag 1',
-          condition: 'New',
-          type: 'Vehicle',
-          isBookedMarked: false),
-      Item(
-          title: 'Item 2',
-          imageUrl: ImageConstant.imgFrame6013,
-          description: 'Description for Item 2',
-          price: 20.0,
-          tag: 'Tag 2',
-          condition: 'Used',
-          type: 'Vehicle',
-          isBookedMarked: false),
-      Item(
-          title: 'Item 1',
-          imageUrl: ImageConstant.imgFrame6014,
-          description: 'Description for Item 1',
-          price: 10.0,
-          tag: 'Tag 1',
-          condition: 'Brand New',
-          type: 'Vehicle',
-          isBookedMarked: false),
-      Item(
-          title: 'Item 2',
-          imageUrl: ImageConstant.imgFrame60,
-          description: 'Description for Item 2',
-          price: 20.0,
-          tag: 'Tag 2',
-          condition: 'Slightly Used',
-          type: 'Vehicle',
-          isBookedMarked: false),
-      // Add more items as needed
-    ];
+    final item = [_item];
     return ListView.builder(
       itemCount: (item.length / 2).ceil(), // Display two items per row
       itemBuilder: (context, index) {
@@ -597,7 +482,8 @@ class _ProductProfileDetailsState extends State<ProductProfileDetailsPage> {
     );
   }
 
-  Widget buildItemCard(BuildContext context, Item item, int index) {
+  Widget buildItemCard(
+      BuildContext context, PostingDataResponse item, int index) {
     return GestureDetector(
       child: Card(
         margin: EdgeInsets.all(8.adaptSize),
@@ -610,7 +496,7 @@ class _ProductProfileDetailsState extends State<ProductProfileDetailsPage> {
                 children: [
                   CustomImageView(
                     radius: BorderRadius.all(Radius.circular(5.adaptSize)),
-                    imagePath: item.imageUrl,
+                    imagePath: item.uploadedFiles?[0].url,
                   ), // Background image
                   Positioned(
                     top: 0,
@@ -618,7 +504,7 @@ class _ProductProfileDetailsState extends State<ProductProfileDetailsPage> {
                     child: Chip(
                       side: const BorderSide(color: Colors.transparent),
                       label: Text(
-                        item.tag,
+                        item.packageType!,
                         style: CustomTextStyles.noticeTextStyle
                             .copyWith(fontSize: 10.fSize),
                       ),
@@ -634,15 +520,11 @@ class _ProductProfileDetailsState extends State<ProductProfileDetailsPage> {
                       shape: CircleBorder(
                           side: BorderSide(color: appThemeColors.whiteA700)),
                       child: IconButton(
-                        color: item.isBookedMarked
-                            ? appThemeColors.greenA400
-                            : appThemeColors.gray400,
+                        color: appThemeColors.greenA400,
                         icon: const Icon(Icons.bookmark_border),
                         onPressed: () {
                           // Handle bookmark action
-                          setState(() {
-                            item.isBookedMarked = !item.isBookedMarked;
-                          });
+                          setState(() {});
                         },
                       ),
                     ),
@@ -654,10 +536,10 @@ class _ProductProfileDetailsState extends State<ProductProfileDetailsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('\$${item.price.toStringAsFixed(2)}',
+                    Text('Ghc ${item.amount}',
                         style: CustomTextStyles.itemHeaderTextStyle),
                     Text(
-                      item.description,
+                      item.postTitle!,
                       style: CustomTextStyles.bodySmallBluegray800,
                     ),
                     const SizedBox(height: 8),
@@ -669,7 +551,7 @@ class _ProductProfileDetailsState extends State<ProductProfileDetailsPage> {
                           child: Chip(
                             side: const BorderSide(color: Colors.white),
                             label: Text(
-                              item.condition,
+                              item.itemCondition!.name,
                               style: CustomTextStyles.noticeTextStyle
                                   .copyWith(fontSize: 10.fSize),
                             ),
@@ -682,7 +564,7 @@ class _ProductProfileDetailsState extends State<ProductProfileDetailsPage> {
                           child: Chip(
                             side: const BorderSide(color: Colors.white),
                             label: Text(
-                              item.type,
+                              item.category!,
                               style: CustomTextStyles.noticeTextStyle
                                   .copyWith(fontSize: 10.fSize),
                             ),

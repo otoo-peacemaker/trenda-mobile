@@ -2,6 +2,8 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../app_export.dart';
+
 class PrefUtils {
   static SharedPreferences? _sharedPreferences;
   static const String accessTokenKey = 'access_token';
@@ -16,7 +18,7 @@ class PrefUtils {
 
   Future<void> init() async {
     _sharedPreferences ??= await SharedPreferences.getInstance();
-    print('SharedPreference Initialized');
+    debugPrint('SharedPreference Initialized');
   }
 
   ///will clear all the data stored in preference

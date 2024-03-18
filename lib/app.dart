@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import '../core/app_export.dart';
-import 'package:country_pickers/country.dart';
 
 class TrendaApp extends StatelessWidget {
   const TrendaApp({super.key});

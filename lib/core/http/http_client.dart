@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'dart:core';
 import 'interceptors.dart';
 
@@ -7,6 +8,7 @@ class HttpAPIDioClient {
   final ApiInterceptor _apiInterceptor = ApiInterceptor(_dio);
 // Base URL for your API
   static const String baseUrl = 'https://trenda-uat.onrender.com';
+  static const String baseUrlProd = 'https://trenda-jit3.onrender.com';
   static const String testUrl1 = 'https://randomuser.me/api/';
   static const String testUrl2 = 'https://api.publicapis.org/entries';
 
@@ -25,7 +27,7 @@ class HttpAPIDioClient {
   static Future<Response<T>> getByQuery<T>(String path,
       {Map<String, dynamic>? queryParameters}) async {
     return _dio.get<T>(
-      '$baseUrl/$path',
+      '$baseUrlProd/$path',
       queryParameters: queryParameters,
     );
   }
@@ -35,7 +37,7 @@ class HttpAPIDioClient {
    * @params: path is the endpoints
   **/
   static Future<Response<T>> getAll<T>(String path) async {
-    return _dio.get<T>('$baseUrl/$path');
+    return _dio.get<T>('$baseUrlProd/$path');
   }
 
 /*
@@ -78,9 +80,9 @@ class HttpAPIDioClient {
 
     try {
       Response response = await _dio.post('$baseUrl/upload', data: formData);
-      print('Upload response: ${response.data}');
+      debugPrint('Upload response: ${response.data}');
     } catch (e) {
-      print('Error uploading files: $e');
+      debugPrint('Error uploading files: $e');
     }
   }
 
@@ -96,13 +98,13 @@ class HttpAPIDioClient {
         savePath,
         onReceiveProgress: (receivedBytes, totalBytes) {
           // You can implement a progress indicator here if needed
-          print('Received: $receivedBytes out of $totalBytes');
+          debugPrint('Received: $receivedBytes out of $totalBytes');
         },
       );
-      print('File downloaded to: $savePath');
+      debugPrint('File downloaded to: $savePath');
     } catch (e) {
       // Handle errors
-      print('Error downloading file: $e');
+      debugPrint('Error downloading file: $e');
     }
   }
 
