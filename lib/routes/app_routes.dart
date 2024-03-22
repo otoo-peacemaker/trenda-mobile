@@ -19,7 +19,6 @@ class AppRoutes {
   static const String onboardingOneScreen = '/onboarding_one_screen';
   static const String splashScreen = '/splash_screen';
   static const String sellOrBuyScreen = '/sell_or_buy_screen';
-  static const String initialRoute = '/initialRoute';
 
   static const String selectOptionToVerifyAccountScreen =
       '/select_option_to_verify_account_screen';
@@ -50,7 +49,6 @@ class AppRoutes {
 
   static Map<String, WidgetBuilder> get routes => {
         appNavigationScreen: AppNavigationScreen.builder,
-        initialRoute: SplashScreen.builder,
         onboardingOneScreen: ManuallyControlledSlider.builder,
         sellOrBuyScreen: SellOrBuyScreen.builder,
         signUpScreen: SignUpScreen.builder,
@@ -65,7 +63,6 @@ class AppRoutes {
         exploreCategory: ExploreProductCategory.builder,
         productDetailsPage: ProductDetailsPage.builder,
         productProfileDetailsPage: ProductProfileDetailsPage.builder,
-
-        // splashScreen: SplashScreen.builder,
+        splashScreen: SplashScreen.builder,
       };
 }

@@ -9,6 +9,10 @@ Widget buildSignInWithGoogle(BuildContext context) {
         color: Colors.grey,
       ),
       backgroundColor: Colors.transparent,
+      textStyle: appThemeData.textTheme.bodySmall?.copyWith(
+        fontSize: 16.fSize,
+        color: appThemeColors.blueGray900,
+      ),
     ),
     onPressed: () {
       debugPrint('login press');

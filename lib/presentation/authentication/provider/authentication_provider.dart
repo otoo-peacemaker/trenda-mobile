@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:country_pickers/country.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
 import '../models/auth/request_model.dart';
 import '../models/auth/response_model.dart';
@@ -49,16 +50,34 @@ class AuthenticationProvider extends ChangeNotifier {
       }
     } catch (err) {
       CustomEasyLoading.dismiss();
-      // ProgressDialogUtils.hideProgressDialog();
+
       if (err is DioException) {
         if (err.response != null) {
-          debugPrint(
-              "::::::::::DioException ${err.response?.statusCode.toString()}\n ");
-          debugPrint(
-              "::::::::::DioException ${err.response?.statusMessage.toString()}\n ");
-          debugPrint("::::::::::DioException ${err.response?.data}\n ");
-          _authResponse =
-              AuthenticationResponseBody.fromJson(err.response?.data);
+          final statusCodes = err.response?.statusCode;
+          final data = err.response?.data;
+          final message = err.response?.statusMessage;
+          switch (statusCodes) {
+            case 400:
+              // Handle Bad Request
+              debugPrintResult(message, statusCodes, data);
+              break;
+            case 401:
+              // Handle Unauthorized
+              debugPrintResult(message, statusCodes, data);
+              break;
+            case 403:
+              // Handle Forbidden
+              debugPrintResult(message, statusCodes, data);
+              break;
+            case 404:
+              // Handle Not Found
+              debugPrintResult(message, statusCodes, data);
+              break;
+            // Add more cases as needed
+            default:
+              // Handle other status codes
+              break;
+          }
         } else {
           debugPrint("DioError without response: $err");
         }
@@ -70,6 +89,15 @@ class AuthenticationProvider extends ChangeNotifier {
     return _authResponse;
   }
 
+  void debugPrintResult(String? message, int? statusCode, dynamic data) {
+    debugPrint("::::::::::statusCodes $statusCode\n ");
+    debugPrint("::::::::::message $message\n ");
+    debugPrint("::::::::::DioExceptionData $data\n ");
+    _authResponse = AuthenticationResponseBody.fromJson(data);
+    debugPrint(
+        "::::::::::DioException_authResponse ${_authResponse?.error}\n ");
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -77,7 +105,6 @@ class AuthenticationProvider extends ChangeNotifier {
     emailController.dispose();
     passwordController.dispose();
     phoneNumberController.dispose();
-    _message = '';
   }
 
   void changeCheckBox1(bool value) {

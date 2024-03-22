@@ -27,11 +27,10 @@ class AppbarTitle extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: const Color(0xFF0F1728),
-            fontSize: 18.fSize,
+            color: const Color(0xFF101828),
+            fontSize: 20.fSize,
             fontFamily: 'Gilroy-Medium',
             fontWeight: FontWeight.w500,
-            height: 0.09,
           ),
         ),
       ),

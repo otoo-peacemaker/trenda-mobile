@@ -1,7 +1,6 @@
 import 'package:trenda/core/app_export.dart';
-import '../../dumy_data.dart';
+import '../../../user/model/user_post_model.dart';
 import '../../models/response_models/get_all_posting_response_body.dart';
-import '../homepage_product_list.dart';
 
 class ProductProfileDetailsPage extends StatefulWidget {
   const ProductProfileDetailsPage({super.key});
@@ -19,23 +18,12 @@ class ProductProfileDetailsPage extends StatefulWidget {
 }
 
 class _ProductProfileDetailsState extends State<ProductProfileDetailsPage> {
-  late PostingDataResponse _item;
+  late Data _item;
 
   @override
   Widget build(BuildContext context) {
-    _item = ModalRoute.of(context)?.settings.arguments as PostingDataResponse;
+    _item = ModalRoute.of(context)?.settings.arguments as Data;
     debugPrint(':::::::::::::::::::::::$_item');
-    final List<String> labels = [
-      'Chip 1',
-      'Chip 2',
-      'Chip 3',
-      'Chip 1',
-      'Chip 2',
-      'Chip 3',
-      'Chip 1',
-      'Chip 2',
-      'Chip 3'
-    ];
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -482,8 +470,7 @@ class _ProductProfileDetailsState extends State<ProductProfileDetailsPage> {
     );
   }
 
-  Widget buildItemCard(
-      BuildContext context, PostingDataResponse item, int index) {
+  Widget buildItemCard(BuildContext context, Data item, int index) {
     return GestureDetector(
       child: Card(
         margin: EdgeInsets.all(8.adaptSize),
@@ -551,7 +538,7 @@ class _ProductProfileDetailsState extends State<ProductProfileDetailsPage> {
                           child: Chip(
                             side: const BorderSide(color: Colors.white),
                             label: Text(
-                              item.itemCondition!.name,
+                              item.itemCondition!,
                               style: CustomTextStyles.noticeTextStyle
                                   .copyWith(fontSize: 10.fSize),
                             ),

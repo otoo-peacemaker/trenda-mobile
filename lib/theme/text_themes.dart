@@ -27,13 +27,13 @@ class TextThemes {
         ),
         displayLarge: TextStyle(
           color: colorScheme.onErrorContainer,
-          fontSize: 12.fSize,
+          fontSize: 14.fSize,
           fontFamily: 'Gilroy-Medium',
           fontWeight: FontWeight.w400,
         ),
         bodySmall: TextStyle(
           color: appThemeColors.gray400,
-          fontSize: 14.fSize,
+          fontSize: 16.fSize,
           fontFamily: 'Gilroy-Medium',
           fontWeight: FontWeight.w400,
         ),

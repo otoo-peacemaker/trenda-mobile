@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import '../core/app_export.dart';
@@ -31,7 +30,7 @@ class TrendaApp extends StatelessWidget {
                     '',
                   ),
                 ],
-                initialRoute: AppRoutes.homepageContainer,
+                initialRoute: AppRoutes.splashScreen,
                 routes: AppRoutes.routes,
                 builder: EasyLoading.init(),
               );

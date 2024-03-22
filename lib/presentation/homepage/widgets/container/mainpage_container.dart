@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
-
 import '../../homepage.dart';
-import '../../provider/homepage_provider.dart';
+import '../../models/response_models/get_all_posting_response_body.dart';
+import '../../models/response_models/get_posting_by_categories.dart';
 
 // ignore_for_file: must_be_immutable
 class HomepagePageContainer extends StatefulWidget {
   const HomepagePageContainer({super.key});
 
   @override
-  _HomepageContainerState createState() => _HomepageContainerState();
+  HomepageContainerState createState() => HomepageContainerState();
 
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
@@ -19,7 +18,7 @@ class HomepagePageContainer extends StatefulWidget {
   }
 }
 
-class _HomepageContainerState extends State<HomepagePageContainer> {
+class HomepageContainerState extends State<HomepagePageContainer> {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   @override
@@ -29,14 +28,25 @@ class _HomepageContainerState extends State<HomepagePageContainer> {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final GetAllPostingResponseBody postingDataResponse = args['dataResponse'];
+    final GetPostingByCategoriesResponseBody postingByCategoriesResponse =
+        args['categoriesResponse'];
+
+    // final GetAllPostingResponseBody item = ModalRoute.of(context)?.settings.arguments as GetAllPostingResponseBody;
+
     return SafeArea(
       child: Scaffold(
         body: Navigator(
           key: navigatorKey,
           initialRoute: AppRoutes.homepage,
           onGenerateRoute: (routeSetting) => PageRouteBuilder(
-            pageBuilder: (ctx, ani, ani1) =>
-                getCurrentPage(context, routeSetting.name!),
+            pageBuilder: (ctx, ani, ani1) => getCurrentPage(
+                context,
+                routeSetting.name!,
+                postingDataResponse,
+                postingByCategoriesResponse),
             transitionDuration: const Duration(seconds: 0),
           ),
         ),
@@ -73,12 +83,13 @@ class _HomepageContainerState extends State<HomepagePageContainer> {
 
   ///Handling page based on route
   Widget getCurrentPage(
-    BuildContext context,
-    String currentRoute,
-  ) {
+      BuildContext context,
+      String currentRoute,
+      GetAllPostingResponseBody posting,
+      GetPostingByCategoriesResponseBody postingByCategories) {
     switch (currentRoute) {
       case AppRoutes.homepage:
-        return HomePage.builder(context);
+        return HomePage.builder(context, posting, postingByCategories);
       default:
         return const DefaultWidget();
     }

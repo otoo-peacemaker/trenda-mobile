@@ -6,7 +6,7 @@ Scaffold buildScaffold({
   required GlobalKey<FormState> formKey,
   required List<Widget> children,
 }) {
-  double screenHeight = MediaQuery.of(context).size.height;
+  double screenHeight = SizeUtils.height;
 
   return Scaffold(
     resizeToAvoidBottomInset: false,
@@ -16,9 +16,12 @@ Scaffold buildScaffold({
         imagePath: ImageConstant.imgLeftarrowIcon,
         margin: EdgeInsets.only(
           left: 13.h,
-          top: 28.v,
+          top: 15.v,
           bottom: 12.v,
         ),
+        onTap: () {
+          NavigatorService.goBack();
+        },
       ),
       centerTitle: true,
       title: AppbarTitle(
@@ -47,33 +50,3 @@ Scaffold buildScaffold({
     ),
   );
 }
-
-PreferredSizeWidget _buildAppBar(BuildContext context, String appbarTitle) {
-  return AppBar(
-    title: AppbarTitle(
-      text: appbarTitle.tr,
-    ),
-    centerTitle: true,
-    leadingWidth: 33.h,
-    iconTheme: IconThemeData(color: appThemeColors.blueGray700),
-  );
-}
-/*
-* CustomAppBar(
-    leadingWidth: 33.h,
-    leading: AppbarLeadingImage(
-      imagePath: ImageConstant.imgLeftarrowIcon,
-      margin: EdgeInsets.only(
-        left: 13.h,
-        top: 28.v,
-        bottom: 12.v,
-      ),
-    ),
-    centerTitle: true,
-    title: AppbarTitle(
-      text: appbarTitle.tr,
-    ),
-    styleType: Style.bgFill,
-  );
-*
-* */

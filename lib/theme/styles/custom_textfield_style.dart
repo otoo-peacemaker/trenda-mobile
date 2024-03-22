@@ -14,6 +14,7 @@ class CustomTextFieldStyle {
   static get labelStyle => appThemeData.textTheme.displayLarge?.copyWith(
         height: 0.12.h,
         color: const Color(0xFF667084),
+        fontSize: 16.fSize,
       );
 
   //const Color(0xFF667084),
@@ -24,6 +25,6 @@ class CustomTextFieldStyle {
       );
   static get errorStyle => appThemeData.textTheme.bodyMedium?.copyWith(
         height: 0.9.h,
-        color: appThemeColors.blueGray800,
+        color: appThemeColors.red700,
       );
 }

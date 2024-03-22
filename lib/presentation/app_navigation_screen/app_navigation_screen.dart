@@ -1,5 +1,3 @@
-import 'models/app_navigation_model.dart';
-import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
 import 'provider/app_navigation_provider.dart';
 
@@ -40,6 +38,18 @@ class AppNavigationScreenState extends State<AppNavigationScreen> {
                     ),
                     child: Column(
                       children: [
+                        _buildScreenTitle(
+                          context,
+                          screenTitle: "Splash".tr,
+                          onTapScreenTitle: () =>
+                              onTapScreenTitle(AppRoutes.splashScreen),
+                        ),
+                        _buildScreenTitle(
+                          context,
+                          screenTitle: "Sell or Buy".tr,
+                          onTapScreenTitle: () =>
+                              onTapScreenTitle(AppRoutes.sellOrBuyScreen),
+                        ),
                         _buildScreenTitle(
                           context,
                           screenTitle: "Select Option to Verify Account".tr,

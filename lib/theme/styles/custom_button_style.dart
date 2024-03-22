@@ -11,7 +11,7 @@ class CustomButtonStyles {
           borderRadius: BorderRadius.circular(4.h),
         ),
         textStyle: appThemeData.textTheme.bodySmall?.copyWith(
-          height: 0.10.h,
+          fontSize: 16.fSize,
           color: appThemeColors.blueGray900,
         ),
       );

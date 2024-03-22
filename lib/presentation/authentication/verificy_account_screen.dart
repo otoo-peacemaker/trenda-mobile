@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
-import '../../widgets/custom_pin_code_text_field.dart';
 
 class VerifyAccountScreen extends StatefulWidget {
   const VerifyAccountScreen({super.key});
@@ -33,23 +31,23 @@ class VerifyAccountScreenState extends State<VerifyAccountScreen> {
         formKey: _formKey,
         children: [
           Text('Enter the verification Code',
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.start,
               maxLines: 2,
               style: CustomTextStyles.headerTextStyle),
           buildWidgetSpace(height: 30.v),
           CustomPinCodeTextField(
             context: context,
-            onChanged: (value) {
-              print(value);
-            },
+            onChanged: (value) {},
           ),
           buildWidgetSpace(height: 20.v),
           _buildVerifyCode(context),
           buildWidgetSpace(height: 20.v),
           Text(
             textAlign: TextAlign.center,
+            softWrap: true,
+            maxLines: 2,
             'You have not received any code?\n request for a new code',
-            style: CustomTextStyles.headlineStyle4,
+            style: CustomTextStyles.noticeTextStyle,
           ),
           TextButton(
             onPressed: () {},
@@ -67,7 +65,7 @@ class VerifyAccountScreenState extends State<VerifyAccountScreen> {
     return CustomOutlinedButton(
       text: "lbl_verify".tr,
       onPressed: () {
-        buildNavTo(AppRoutes.resetPasswordScreen);
+        buildNavTo(AppRoutes.signInScreen);
       },
     );
   }

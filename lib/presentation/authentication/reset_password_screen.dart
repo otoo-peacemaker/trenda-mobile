@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:trenda/components/build_widget_components.dart';
 import 'package:trenda/core/app_export.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -29,16 +27,20 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return SafeArea(
       child: buildScaffold(
         context: context,
-        appbarTitle: "lbl_forgot_password",
+        appbarTitle: "lbl_forgot_password".tr,
         formKey: _formKey,
         children: [
-          Text('lbl_enter_code_to_reset_password'.tr,
-              textAlign: TextAlign.center,
-              style: CustomTextStyles.headerTextStyle),
+          Text(
+            'lbl_enter_code_to_reset_password'.tr,
+            softWrap: true,
+            maxLines: 3,
+            textAlign: TextAlign.start,
+            style: CustomTextStyles.headerTextStyle,
+          ),
           buildWidgetSpace(height: 30.v),
-          buildTextField(context, 'Enter code'),
+          buildTextField(context, 'Enter code', label: "Enter code"),
           buildWidgetSpace(),
-          buildPassword(context, string: 'Enter new password'),
+          buildPassword(context, string: 'msg_enter_new_password'.tr),
           buildWidgetSpace(),
           buildConfirmPassword(context, string: 'Confirm password'),
           buildWidgetSpace(height: 20.v),
@@ -50,7 +52,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   Widget _buildResetPassword(BuildContext context) {
     return CustomOutlinedButton(
-      text: "lbl_verify".tr,
+      text: "Reset password".tr,
       onPressed: () {
         buildNavTo(AppRoutes.signInScreen);
       },

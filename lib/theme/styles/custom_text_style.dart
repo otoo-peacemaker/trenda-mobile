@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import '../../core/app_export.dart';
 
 /// A collection of pre-defined text styles for customizing text appearance,
@@ -38,7 +37,6 @@ class CustomTextStyles {
       );
 
   static get noticeTextStyle => appThemeData.textTheme.displayLarge?.copyWith(
-        height: 0.10.h,
         fontWeight: FontWeight.w400,
         color: appThemeColors.blueGray800,
       );

@@ -4,13 +4,13 @@ import '../theme/styles/custom_textfield_style.dart';
 
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
-    Key? key,
+    super.key,
     this.alignment,
     this.width,
     this.scrollPadding,
     this.controller,
     this.focusNode,
-    this.autofocus = true,
+    this.autofocus = false,
     this.textStyle,
     this.obscureText = false,
     this.textInputAction = TextInputAction.next,
@@ -30,7 +30,7 @@ class CustomTextFormField extends StatefulWidget {
     this.showPasswordToggle = true,
     this.labelText,
     this.enableLabel = true,
-  }) : super(key: key);
+  });
 
   final Alignment? alignment;
   final double? width;
@@ -110,7 +110,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         contentPadding: widget.contentPadding ??
             EdgeInsets.symmetric(
               horizontal: 12.h,
-              vertical: 13.v,
+              vertical: 16.v,
             ),
         fillColor: widget.fillColor ?? appThemeColors.whiteA70001,
         filled: widget.filled,

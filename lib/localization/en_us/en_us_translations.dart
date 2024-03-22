@@ -256,20 +256,22 @@ final Map<String, String> enUs = {
   // Select Option to Verify Account Screen
   "lbl_2332490212002": "+233249021200",
   "msg_select_an_option":
-  "Select an option below to receive your verification Code",
+      "Select an option below to receive your verification Code",
 
   // Onboarding-One Screen
   "msg_one_stop_shopping": "One-Stop Shopping & Selling Marketplace",
 
-  // Reset Password-Error Screen
-  "lbl_41efd37": "41efd37",
-
   // Splash Screen
   "lbl_trenda": "Trenda",
 
-  // Sign-Up One Screen
+  // Authentication
   "msg_enter_business_or": "Enter Business or Username",
   "msg_enter_phone_number": "Enter phone number",
+  "lbl_sign_in_with_Google": "  Sign in with Google",
+  "lbl_enter_name": "Enter name",
+  "err_msg_please_enter_valid_password": "Please enter valid password",
+  "err_msg_please_enter_valid_email": "Please enter valid email",
+  "err_msg_please_enter_valid_name": "Please enter valid name",
 
   // Onboarding-Two One Screen
   "msg_stop_searching": "Stop Searching & Start Finding",
@@ -280,7 +282,7 @@ final Map<String, String> enUs = {
   // Onboarding-Three Screen
   "msg_easy_navigation": "Easy Navigation & Mobile-Friendly",
   "msg_explore_a_diverse":
-  "Explore a diverse catalog of products and services offered by various vendors and sellers online, featuring affordable prices.",
+      "Explore a diverse catalog of products and services offered by various vendors and sellers online, featuring affordable prices.",
 
   // Sell or Buy Screen
   "lbl_buy": "Buy", "lbl_sell": "Sell",
@@ -288,10 +290,11 @@ final Map<String, String> enUs = {
 
   // Reset Password Screen
   "lbl_enter_code": "Enter Code",
-  "msg_enter_new_passowrd": "Enter New Passowrd",
+  "msg_enter_new_password": "Enter New Password",
+  "lbl_enter_code_to_reset_password": "Enter code to reset password",
 
   // Reset Password One Screen
-  "msg_send_request_link": "Send Request Link to Email",
+  "lbl_send_request_link": "Send Request Link to Email",
 
   // Common String
   "lbl_0262195121": "0262195121",
@@ -371,10 +374,10 @@ final Map<String, String> enUs = {
   "msg_enter_email_address": "Enter Email Address",
   "msg_enter_the_code_and": "Enter the code and reset your password",
   "msg_enter_the_verification":
-  "Enter the verification code sent to your email",
+      "Enter the verification code sent to your email",
   "msg_forgot_password": "Forgot Password?",
   "msg_glossy_tassel_brogue":
-  "Glossy Tassel Brogue Leather Loafer Slip-ons Classic Formal Shoes - Black",
+      "Glossy Tassel Brogue Leather Loafer Slip-ons Classic Formal Shoes - Black",
   "msg_i_agree_wih_terms": "I agree wih Terms and Privacy Policy",
   "msg_inspect_the_item": "Inspect the item.",
   "msg_kejetia_ashanti": "Kejetia, Ashanti Region, Ghana",
@@ -382,10 +385,10 @@ final Map<String, String> enUs = {
   "msg_must_be_at_least": "Must be at least 8 characters.",
   "msg_peace_maker_gmail_com": "peace.maker@gmail.com",
   "msg_quickly_and_effortlessly":
-  "Quickly and effortlessly navigate through the app, finding everything you need in the blink of an eye.",
+      "Quickly and effortlessly navigate through the app, finding everything you need in the blink of an eye.",
   "msg_request_a_new_code": "Request A new Code",
   "msg_request_for_a_new":
-  "Request for a new code by entering your email below",
+      "Request for a new code by entering your email below",
   "msg_request_new_code": "Request New Code",
   "msg_request_password": "Request password reset by entering your email below",
   "msg_research_the_seller": "Research the seller.",

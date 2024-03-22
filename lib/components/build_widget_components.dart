@@ -1,7 +1,6 @@
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/utils/utils.dart';
 import 'package:trenda/core/app_export.dart';
-import 'package:trenda/core/utils/validation_functions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Section Widget
@@ -31,7 +30,7 @@ Widget buildEmail(BuildContext context) {
 
 /// Section Widget
 Widget buildPassword(BuildContext context,
-    {String? string = 'Enter Password'}) {
+    {String? string = 'Enter Password', bool validate = true}) {
   bool obscureText = true;
   return Selector<AuthenticationProvider, TextEditingController?>(
     selector: (context, provider) => provider.passwordController,
@@ -42,13 +41,16 @@ Widget buildPassword(BuildContext context,
           hintText: string,
           textInputAction: TextInputAction.done,
           textInputType: TextInputType.visiblePassword,
-          validator: (value) {
-            obscureText = !obscureText;
-            if (value == null || (!isValidPassword(value, isRequired: true))) {
-              return "err_msg_please_enter_valid_password".tr;
-            }
-            return null;
-          },
+          validator: validate
+              ? (value) {
+                  obscureText = !obscureText;
+                  if (value == null ||
+                      (!isValidPassword(value, isRequired: true))) {
+                    return "err_msg_please_enter_valid_password".tr;
+                  }
+                  return null;
+                }
+              : null,
           obscureText: obscureText);
     },
   );
@@ -92,12 +94,13 @@ Widget buildPhoneNumber(BuildContext context) {
 }
 
 /// Section Widget
-Widget buildTextField(BuildContext context, String text) {
+Widget buildTextField(BuildContext context, String text,
+    {String? label = "Username"}) {
   return Selector<AuthenticationProvider, TextEditingController?>(
     selector: (context, provider) => provider.userNameController,
     builder: (context, passwordController, child) {
       return CustomTextFormField(
-        labelText: 'Business or username',
+        labelText: label?.tr,
         controller: passwordController,
         hintText: text.tr,
         textInputAction: TextInputAction.next,

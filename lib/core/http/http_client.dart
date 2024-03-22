@@ -47,7 +47,7 @@ class HttpAPIDioClient {
   **/
   Future<Response<T>> post<T>(String path, dynamic data) async {
     return _dio.post<T>(
-      '$baseUrl/$path',
+      '$baseUrlProd/$path',
       data: data,
     );
   }

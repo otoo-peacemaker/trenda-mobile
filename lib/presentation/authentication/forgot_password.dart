@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
-import 'package:trenda/widgets/custom_outlined_button.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -29,39 +27,20 @@ class SignInScreenState extends State<ForgotPasswordScreen> {
     return SafeArea(
       child: buildScaffold(
         context: context,
-        appbarTitle: "lbl_forgot_password",
+        appbarTitle: "lbl_forgot_password".tr,
         formKey: _formKey,
         children: [
           Text(
             'Request your password by entering your email below',
             softWrap: true,
             maxLines: 3,
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.start,
             style: CustomTextStyles.headerTextStyle,
           ),
           buildWidgetSpace(height: 30.v),
           buildEmail(context),
           buildWidgetSpace(height: 20.v),
           _buildSendRequestLink(context),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Return'.tr,
-                style: appThemeData.textTheme.bodyMedium,
-              ),
-              buildWidgetSpace(height: 100.h),
-              TextButton(
-                style: OutlinedButton.styleFrom(
-                    textStyle: appThemeData.textTheme.bodyMedium,
-                    foregroundColor: appThemeData.colorScheme.onSurface),
-                onPressed: () {
-                  buildNavTo(AppRoutes.signUpScreen);
-                },
-                child: const Text('Sign Up'),
-              ),
-            ],
-          )
         ],
       ),
     );

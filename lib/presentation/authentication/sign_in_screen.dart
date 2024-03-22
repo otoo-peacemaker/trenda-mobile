@@ -1,23 +1,28 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:trenda/core/app_export.dart';
-import 'models/auth/request_model.dart';
+import 'package:trenda/presentation/authentication/authentication_export.dart';
+import '../homepage/models/response_models/get_all_posting_response_body.dart';
+import '../homepage/models/response_models/get_posting_by_categories.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
   @override
-  _SignInScreenState createState() => _SignInScreenState();
+  SignInScreenState createState() => SignInScreenState();
 
   static Widget builder(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => AuthenticationProvider(),
-        child: const SignInScreen());
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => HomePageProvider()),
+        ChangeNotifierProvider(create: (_) => AuthenticationProvider()),
+        // Add more providers if needed
+      ],
+      child: const SignInScreen(),
+    );
   }
 }
 
 // ignore_for_file: must_be_immutable
-class _SignInScreenState extends State<SignInScreen> {
+class SignInScreenState extends State<SignInScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -35,13 +40,13 @@ class _SignInScreenState extends State<SignInScreen> {
         children: [
           buildIconWidget('assets/images/img_trenda_logo_up_1.png',
               size: 74.fSize, color: appThemeColors.greenA700),
-          buildWidgetSpace(height: 40.h),
+          buildWidgetSpace(height: 30.h),
           Form(
             child: Column(
               children: [
                 buildEmail(context),
                 buildWidgetSpace(),
-                buildPassword(context),
+                buildPassword(context, validate: false),
               ],
             ),
           ),
@@ -53,7 +58,7 @@ class _SignInScreenState extends State<SignInScreen> {
           _buildSignIn(context),
           buildWidgetSpace(),
           buildSignInWithGoogle(context),
-          buildWidgetSpace(height: 100.h),
+          buildWidgetSpace(height: 80.h),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -87,8 +92,8 @@ class _SignInScreenState extends State<SignInScreen> {
   /// Section Widget
   Widget _buildSignIn(BuildContext context) {
     return Material(
-      child: Consumer<AuthenticationProvider>(
-        builder: (context, provider, child) {
+      child: Consumer2<AuthenticationProvider, HomePageProvider>(
+        builder: (context, provider, homeProvider, child) {
           return CustomOutlinedButton(
             text: "lbl_sign_in".tr,
             onPressed: () async {
@@ -99,23 +104,40 @@ class _SignInScreenState extends State<SignInScreen> {
                 password: password,
               );
               if (_validateFields(password, email)) {
-                provider
-                    .authenticateUser(
-                        endpoints: login, authRequestBody: loginUser)
-                    .then((value) {
-                  if (value != null) {
-                    if (value.success == true) {
-                      PrefUtils.saveAccessToken(value.token!);
-                      NavigatorService.pushNamed(AppRoutes.homepageContainer);
-                    } else {
-                      debugPrint("INSIDE LOGIN::: ${value.success}");
-                      debugPrint("INSIDE Sign up::: ${value.success}");
-                      showCustomSnackBar(context, value.error!, onRetry: () {});
-                    }
+                try {
+                  // Execute login and data fetching synchronously
+                  final results = await Future.wait([
+                    provider.authenticateUser(
+                        endpoints: login, authRequestBody: loginUser),
+                    homeProvider.getPostingsByATTL(endpoints: getAllPosting),
+                    homeProvider.getPostingByCategories()
+                  ]);
+
+                  // Extract login response and data response
+                  final loginResponse =
+                      results[0] as AuthenticationResponseBody;
+                  final dataResponse = results[1] as GetAllPostingResponseBody;
+                  final categoriesResponse =
+                      results[2] as GetPostingByCategoriesResponseBody;
+
+                  // Process login response
+                  if (loginResponse.success == true) {
+                    // Save access token
+                    PrefUtils.saveAccessToken(loginResponse.token!);
+                    // Process data response
+                    NavigatorService.pushNamed(AppRoutes.homepageContainer,
+                        arguments: {
+                          'dataResponse': dataResponse,
+                          'categoriesResponse': categoriesResponse,
+                        });
                   } else {
-                    showCustomSnackBar(context, provider.message);
+                    debugPrint("Error: Login unsuccessful");
+                    showMessage(loginResponse.error);
                   }
-                });
+                } catch (e) {
+                  debugPrint("Error while signing in: $e");
+                  showMessage("Something went wrong");
+                }
               }
             },
           );
@@ -132,5 +154,10 @@ class _SignInScreenState extends State<SignInScreen> {
           changeBgColor: false);
       return false;
     }
+  }
+
+  void showMessage(String? message) {
+    showCustomSnackBar(context, message ?? "Login unsuccessful",
+        changeBgColor: false, onRetry: () {});
   }
 }
