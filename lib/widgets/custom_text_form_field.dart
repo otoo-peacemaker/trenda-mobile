@@ -64,6 +64,13 @@ class CustomTextFormField extends StatefulWidget {
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool _obscureText = true;
+  late FocusNode _focusNode;
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+    _focusNode.addListener(_onFocusChange);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,16 +82,30 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         : _textFormFieldWidget(context);
   }
 
+  @override
+  void dispose() {
+    _focusNode.removeListener(_onFocusChange);
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    setState(() {
+      // Update the obscureText state based on focus
+      _obscureText = widget.obscureText! && !_focusNode.hasFocus;
+    });
+  }
+
   Widget _textFormFieldWidget(BuildContext context) => SizedBox(
         width: widget.width ?? double.maxFinite,
         child: TextFormField(
           scrollPadding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           controller: widget.controller,
-          focusNode: widget.focusNode ?? FocusNode(),
+          focusNode: widget.focusNode ?? _focusNode,
           autofocus: widget.autofocus!,
           style: widget.textStyle ?? CustomTextFieldStyle.inputTextStyle,
-          obscureText: _obscureText && widget.obscureText!,
+          obscureText: _obscureText,
           textInputAction: widget.textInputAction!,
           keyboardType: widget.textInputType!,
           maxLines: widget.maxLines ?? 1,

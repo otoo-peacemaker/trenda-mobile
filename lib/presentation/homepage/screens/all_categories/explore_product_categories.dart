@@ -1,7 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import '../../../../core/app_export.dart';
 import '../../homepage.dart';
 import '../../models/response_models/get_all_posting_response_body.dart';

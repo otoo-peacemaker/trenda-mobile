@@ -1,15 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:trenda/core/app_export.dart';
 import 'package:trenda/presentation/user/model/user_post_model.dart';
 import '../../../user/endpoints.dart';
 import '../../homepage.dart';
 import '../../models/response_models/get_all_posting_response_body.dart';
+import '../homepage_product_list.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   const ProductDetailsPage({super.key});
 
   @override
   State<ProductDetailsPage> createState() => _ProductDetailsPageState();
-
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => HomePageProvider(),
@@ -71,7 +74,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
               buildWidgetSpace(),
               _buildShareSocialLink(context),
               buildWidgetSpace(),
-              _buildSafetyTips(context)
+              _buildSafetyTips(context),
+              _buildRelatedProducts(),
             ],
           ),
         ),
@@ -138,69 +142,68 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
   Widget _buildDetailFrame(BuildContext context, PostingDataResponse item) {
     bool isBookedMarked = false;
     return Container(
-      padding: EdgeInsets.fromLTRB(16.h, 12.v, 16.h, 11.v),
+      padding: EdgeInsets.fromLTRB(16.h, 5.v, 16.h, 11.v),
       decoration: AppDecoration.outlineBluegray501,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 5,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: 1.v,
-                    bottom: 5.v,
-                  ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 4,
                   child: Text(
                     "${item.postTitle}".tr,
-                    style: CustomTextStyles.textButtonTextStyle,
+                    style: TextStyle(
+                      color: const Color(0xFF344054),
+                      fontSize: 18.fSize,
+                      fontFamily: 'Gilroy-Medium',
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Card.filled(
-                  elevation: 5.adaptSize,
-                  shape: CircleBorder(
-                      side: BorderSide(color: appThemeColors.whiteA700)),
-                  child: IconButton(
-                    color: isBookedMarked
-                        ? appThemeColors.greenA400
-                        : appThemeColors.gray400,
-                    icon: const Icon(Icons.bookmark_border),
-                    onPressed: () {
-                      // Handle bookmark action
-                      setState(() {
-                        isBookedMarked = !isBookedMarked;
-                      });
-                    },
+                Expanded(
+                  child: Card.filled(
+                    elevation: 5.adaptSize,
+                    shape: CircleBorder(
+                        side: BorderSide(color: appThemeColors.whiteA700)),
+                    child: IconButton(
+                      color: isBookedMarked
+                          ? appThemeColors.greenA400
+                          : appThemeColors.gray400,
+                      icon: const Icon(Icons.bookmark_border),
+                      onPressed: () {
+                        // Handle bookmark action
+                        setState(() {
+                          isBookedMarked = !isBookedMarked;
+                        });
+                      },
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             children: [
               Text(
                 "Ghc ${item.amount}".tr,
-                style: CustomTextStyles.bodyMediumGilroyRegular
-                    .copyWith(color: appThemeColors.greenA700),
+                style: TextStyle(
+                  color: const Color(0xFF00B557),
+                  fontSize: 18.fSize,
+                  fontFamily: 'Gilroy-Medium',
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 8.h,
-                  top: 4.v,
-                ),
-                child: Text(
-                  "Negotiable: ${item.negotiable}".tr,
-                  style: CustomTextStyles.bodySmallBlueGray900,
-                ),
+              Text(
+                (item.negotiable == true) ? " Negotiable".tr : "",
+                style: CustomTextStyles.bodySmallBlueGray900,
               ),
             ],
           ),
-          SizedBox(height: 12.v),
+          SizedBox(height: 10.v),
           Padding(
             padding: EdgeInsets.only(right: 5.h),
             child: Row(
@@ -251,14 +254,19 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
 
   Widget _buildFeatures(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(10.h, 13.v, 40.h, 12.v),
+      padding: EdgeInsets.all(15.adaptSize),
       decoration: AppDecoration.outlineBluegray501,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "lbl_features".tr,
-            style: CustomTextStyles.bodySmallGilroyRegularErrorContainer,
+            style: TextStyle(
+              color: const Color(0xFF1D2939),
+              fontSize: 12.fSize,
+              fontFamily: 'Gilroy-Regular',
+              fontWeight: FontWeight.w500,
+            ),
           ),
           SizedBox(height: 10.v),
           Column(
@@ -307,12 +315,22 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
       children: [
         Text(
           key,
-          style: CustomTextStyles.bodySmallBlueGray900,
+          style: TextStyle(
+            color: const Color(0xFF667085),
+            fontSize: 12.fSize,
+            fontFamily: 'Gilroy-Medium',
+            fontWeight: FontWeight.w500,
+          ),
         ),
         SizedBox(height: 2.v),
         Text(
           value,
-          style: CustomTextStyles.bodyMediumBluegray500,
+          style: TextStyle(
+            color: const Color(0xFF344054),
+            fontSize: 14.fSize,
+            fontFamily: 'Gilroy-Medium',
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ],
     );
@@ -329,132 +347,114 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
             debugPrint('::::::::::::::::::::;${user?.name}');
             return Container(
               width: double.maxFinite,
-              padding: EdgeInsets.fromLTRB(16.h, 12.v, 16.h, 11.v),
+              padding: EdgeInsets.all(1.adaptSize),
+              margin: EdgeInsets.symmetric(horizontal: 15.h),
               decoration: AppDecoration.outlineBluegray501,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(height: 4.v),
                   Text(
-                    "${user?.name}".tr,
+                    "ABOUT THE SELLER".tr,
                     style:
                         CustomTextStyles.bodySmallGilroyRegularErrorContainer,
                   ),
-                  SizedBox(height: 16.v),
-                  Padding(
-                    padding: EdgeInsets.only(right: 7.h),
-                    child: Row(
+                  SizedBox(height: 20.v),
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              NavigatorService.pushNamed(
-                                  AppRoutes.productProfileDetailsPage,
-                                  arguments: data);
-                            },
-                            child: CustomImageView(
-                              margin: const EdgeInsets.all(5),
+                        Row(
+                          children: [
+                            CustomImageView(
+                              height: 60.v,
+                              width: 60.h,
                               imagePath: ImageConstant.imgAvatar,
-                              height: 56.adaptSize,
-                              width: 56.adaptSize,
-                              radius: BorderRadius.circular(
-                                20.h,
-                              ),
+                              fit: BoxFit.cover,
+                              radius: BorderRadius.circular(5.adaptSize),
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: 4.h,
-                              top: 4.v,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            buildWidgetSpace(width: 10),
+                            Column(
                               children: [
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 1.v),
-                                      child: Text(
-                                        "${user?.name}".tr,
-                                        style: CustomTextStyles
-                                            .bodyMediumBluegray500,
-                                      ),
-                                    ),
-                                    buildWidgetSpace(width: 10),
-                                    Chip(
-                                      backgroundColor: Colors.orange,
-                                      side: BorderSide(
-                                        width: 0.5.adaptSize,
-                                        color: Colors.transparent,
-                                      ),
-                                      label: Text(
-                                        "${data?.packageType}".tr,
-                                        style: CustomTextStyles.noticeTextStyle
-                                            .copyWith(color: Colors.white),
-                                      ),
-                                    ),
-                                  ],
+                                Text(
+                                  softWrap: true,
+                                  "${user?.name}".tr,
+                                  style: TextStyle(
+                                    color: const Color(0xFF475467),
+                                    fontSize: 16.fSize,
+                                    fontFamily: 'Gilroy-Medium',
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                                SizedBox(height: 11.v),
-                                Row(
-                                  children: [
-                                    CustomImageView(
-                                      imagePath: ImageConstant.imgVerify,
-                                      height: 20.adaptSize,
-                                      width: 20.adaptSize,
-                                      color: appThemeColors.greenA400,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 8.h,
-                                        bottom: 2.v,
-                                      ),
-                                      child: user!.userVerifiedById == true
-                                          ? Text(
-                                              "msg_account_verified".tr,
-                                              style: CustomTextStyles
-                                                  .bodyMediumGilroyRegularGreenA700,
-                                            )
-                                          : Text(
-                                              "Unverified user".tr,
-                                              style: CustomTextStyles
-                                                  .bodyMediumGilroyRegularGreenA700,
-                                            ),
-                                    ),
-                                  ],
+                                Chip(
+                                  side: const BorderSide(
+                                    color: Colors.transparent,
+                                  ),
+                                  avatar: CustomImageView(
+                                    imagePath: ImageConstant.imgVerify,
+                                    height: 20.adaptSize,
+                                    width: 20.adaptSize,
+                                    color: appThemeColors.greenA400,
+                                  ),
+                                  label: user!.userVerifiedById == true
+                                      ? Text(
+                                          "msg_account_verified".tr,
+                                          style: TextStyle(
+                                            color: const Color(0xFF475467),
+                                            fontSize: 14.fSize,
+                                            fontFamily: 'Gilroy-Regular',
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        )
+                                      : Text("Unverified user".tr,
+                                          style: TextStyle(
+                                            color: const Color(0xFF475467),
+                                            fontSize: 14.fSize,
+                                            fontFamily: 'Gilroy-Regular',
+                                            fontWeight: FontWeight.w500,
+                                          )),
                                 ),
-                                SizedBox(height: 11.v),
                               ],
                             ),
-                          ),
+                            buildWidgetSpace(width: 10),
+                            Chip(
+                              backgroundColor: Colors.orange,
+                              side: BorderSide(
+                                width: 0.5.adaptSize,
+                                color: Colors.transparent,
+                              ),
+                              label: Text(
+                                "${data?.packageType}".tr,
+                                style: CustomTextStyles.noticeTextStyle
+                                    .copyWith(color: Colors.white),
+                              ),
+                            )
+                          ],
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 20.v),
+                  SizedBox(height: 5.v),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Expanded(
-                        child: CustomTextButton(
-                          leftIcon: buildIconData(
-                              'assets/images/google_ico.png',
-                              size: 15.adaptSize,
-                              onPressed: () {}),
-                          text: '${user.mobile}',
-                          style: null,
+                      CustomTextButton(
+                        leftIcon: CustomImageView(
+                          imagePath: ImageConstant.imgPhone,
+                          height: 20.v,
+                          margin: const EdgeInsets.symmetric(vertical: 10),
                         ),
+                        text: '${user.mobile}',
+                        style: null,
                       ),
+                      SizedBox(width: 10.v),
                       Expanded(
                         child: CustomTextButton(
-                          leftIcon: buildIconData(
-                              'assets/images/google_ico.png',
-                              size: 15.adaptSize,
-                              onPressed: () {}),
+                          leftIcon: CustomImageView(
+                            height: 20.v,
+                            imagePath: ImageConstant.imgWhatsapp,
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                          ),
                           text: '${user.mobile}',
                           style: null,
                           alignment: Alignment.centerLeft,
@@ -464,16 +464,24 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                   ),
                   SizedBox(height: 10.v),
                   CustomTextButton(
-                    leftIcon: buildIconData('assets/images/google_ico.png',
-                        size: 15.adaptSize, onPressed: () {}),
-                    text: '${data?.socialLink}',
+                    leftIcon: CustomImageView(
+                      height: 20.v,
+                      imagePath: ImageConstant.imgSocialIconRed50001,
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                    ),
+                    text: '${"nanakwesiotoo@gmail.com"}',
                     style: null,
                     alignment: Alignment.centerLeft,
                   ),
                   SizedBox(height: 20.v),
                   Text(
                     "msg_account_engagement".tr,
-                    style: appThemeData.textTheme.bodyMedium,
+                    style: TextStyle(
+                      color: const Color(0xFF344054),
+                      fontSize: 14.fSize,
+                      fontFamily: 'Gilroy-Medium',
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   SizedBox(height: 4.v),
                   Padding(
@@ -492,8 +500,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                           4.h,
                         ),
                         child: LinearProgressIndicator(
-                          value: data!.postImpressions?.toDouble(),
-                          backgroundColor: appThemeColors.gray100,
+                          value: (data!.postImpressions! / 100).toDouble(),
+                          backgroundColor: appThemeColors.gray10001,
                           valueColor: AlwaysStoppedAnimation<Color>(
                             appThemeColors.greenA40001,
                           ),
@@ -504,33 +512,50 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                   SizedBox(height: 19.v),
                   Row(
                     children: [
-                      Text(
-                        "lbl_last_seen".tr,
-                        style: CustomTextStyles
-                            .bodySmallGilroyRegularErrorContainer,
-                      ),
+                      Text("lbl_last_seen".tr,
+                          style: TextStyle(
+                            color: const Color(0xFF344054),
+                            fontSize: 12.fSize,
+                            fontFamily: 'Gilroy-Medium',
+                            fontWeight: FontWeight.w500,
+                          )),
                       Padding(
                         padding: EdgeInsets.only(left: 71.h),
                         child: Text(
                           "lbl_joined_trenda".tr,
-                          style: CustomTextStyles
-                              .bodySmallGilroyRegularErrorContainer,
+                          style: TextStyle(
+                            color: const Color(0xFF667085),
+                            fontSize: 12.fSize,
+                            fontFamily: 'Gilroy-Medium',
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 12.v),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "${user.lastLogin?.day} day(s) ago".tr,
-                        style: appThemeData.textTheme.bodyMedium,
+                        style: TextStyle(
+                          color: const Color(0xFF344054),
+                          fontSize: 14.fSize,
+                          fontFamily: 'Gilroy-Medium',
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 62.h),
+                        padding: EdgeInsets.only(left: 40.h),
                         child: Text(
-                          "${user.createdAt}".tr,
-                          style: appThemeData.textTheme.bodyMedium,
+                          DateFormat('MMM dd yyyy').format(user.createdAt!).tr,
+                          style: TextStyle(
+                            color: const Color(0xFF344054),
+                            fontSize: 14.fSize,
+                            fontFamily: 'Gilroy-Medium',
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],
@@ -552,42 +577,35 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
         children: [
           Text(
             "msg_share_social_links".tr,
-            style: CustomTextStyles.bodySmallGilroyRegularErrorContainer,
+            style: TextStyle(
+              color: const Color(0xFF1D2939),
+              fontSize: 12.fSize,
+              fontFamily: 'Gilroy-Regular',
+              fontWeight: FontWeight.w500,
+            ),
           ),
-          SizedBox(height: 22.v),
+          SizedBox(height: 10.v),
           Row(
             children: [
-              CustomIconButton(
+              CustomImageView(
                 height: 28.adaptSize,
                 width: 28.adaptSize,
-                padding: EdgeInsets.all(6.h),
-                decoration: IconButtonStyleHelper.outlinePrimary,
+                imagePath: 'assets/images/img_share_fb.svg',
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 12.h),
                 child: CustomImageView(
-                  imagePath: ImageConstant.imgSocialIcon,
+                  height: 28.adaptSize,
+                  width: 28.adaptSize,
+                  imagePath: 'assets/images/img_share_twitter.svg',
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 12.h),
-                child: CustomIconButton(
+                child: CustomImageView(
                   height: 28.adaptSize,
                   width: 28.adaptSize,
-                  padding: EdgeInsets.all(6.h),
-                  decoration: IconButtonStyleHelper.fillOnPrimaryContainer,
-                  child: CustomImageView(
-                    imagePath: ImageConstant.imgXLogoSvg,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 12.h),
-                child: CustomIconButton(
-                  height: 28.adaptSize,
-                  width: 28.adaptSize,
-                  padding: EdgeInsets.all(5.h),
-                  decoration: IconButtonStyleHelper.fillLightBlue,
-                  child: CustomImageView(
-                    imagePath: ImageConstant.imgLink,
-                  ),
+                  imagePath: 'assets/images/img_share_linkendIn.svg',
                 ),
               ),
             ],
@@ -609,7 +627,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
           width: 20.adaptSize,
         ),
       ),
-      buttonStyle: CustomButtonStyles.outlineGreenA,
+      buttonStyle: OutlinedButton.styleFrom(
+        side: BorderSide(
+          color: appThemeColors.greenA700,
+        ),
+        backgroundColor: Colors.transparent,
+        textStyle: appThemeData.textTheme.bodyMedium?.copyWith(
+          fontSize: 14.fSize,
+          color: appThemeColors.blueGray900,
+        ),
+      ),
     );
   }
 
@@ -622,7 +649,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
         children: [
           Text(
             "lbl_safety_tips".tr,
-            style: CustomTextStyles.bodySmallGilroyRegularErrorContainer,
+            style: TextStyle(
+              color: const Color(0xFF1D2939),
+              fontSize: 12.fSize,
+              fontFamily: 'Gilroy-Regular',
+              fontWeight: FontWeight.w500,
+            ),
           ),
           SizedBox(height: 24.v),
           Padding(
@@ -638,7 +670,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                   padding: EdgeInsets.only(left: 16.h),
                   child: Text(
                     "msg_confirm_seller_contact".tr,
-                    style: appThemeData.textTheme.bodyMedium,
+                    style: TextStyle(
+                      color: const Color(0xFF344054),
+                      fontSize: 14.fSize,
+                      fontFamily: 'Gilroy-Medium',
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],
@@ -656,7 +693,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                 padding: EdgeInsets.only(left: 16.h),
                 child: Text(
                   "msg_meet_in_public_places".tr,
-                  style: appThemeData.textTheme.bodyMedium,
+                  style: TextStyle(
+                    color: const Color(0xFF344054),
+                    fontSize: 14.fSize,
+                    fontFamily: 'Gilroy-Medium',
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ],
@@ -674,7 +716,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                 padding: EdgeInsets.only(left: 16.h),
                 child: Text(
                   "msg_research_the_seller".tr,
-                  style: appThemeData.textTheme.bodyMedium,
+                  style: TextStyle(
+                    color: const Color(0xFF344054),
+                    fontSize: 14.fSize,
+                    fontFamily: 'Gilroy-Medium',
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ],
@@ -694,7 +741,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                   padding: EdgeInsets.only(left: 16.h),
                   child: Text(
                     "msg_avoid_wiring_money".tr,
-                    style: appThemeData.textTheme.bodyMedium,
+                    style: TextStyle(
+                      color: const Color(0xFF344054),
+                      fontSize: 14.fSize,
+                      fontFamily: 'Gilroy-Medium',
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],
@@ -712,7 +764,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
                 padding: EdgeInsets.only(left: 16.h),
                 child: Text(
                   "msg_inspect_the_item".tr,
-                  style: appThemeData.textTheme.bodyMedium,
+                  style: TextStyle(
+                    color: const Color(0xFF344054),
+                    fontSize: 14.fSize,
+                    fontFamily: 'Gilroy-Medium',
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ],
@@ -721,6 +778,27 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
           _buildChatSupportAsSoonAs(context),
         ],
       ),
+    );
+  }
+
+  Widget _buildRelatedProducts() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.h, vertical: 10.v),
+          child: Text(
+            "Related Products".tr,
+            style: TextStyle(
+              color: const Color(0xFF344054),
+              fontSize: 16.fSize,
+              fontFamily: 'Gilroy-Medium',
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        SizedBox(height: 400.v, child: HomePageProductList.builder(context))
+      ],
     );
   }
 }

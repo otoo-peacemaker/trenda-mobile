@@ -92,12 +92,12 @@ class CustomImageView extends StatelessWidget {
           return SizedBox(
             height: height,
             width: width,
-            child: SvgPicture.asset(imagePath!,
-                height: height,
-                width: width,
-                fit: fit ?? BoxFit.contain,
-                colorFilter: ColorFilter.mode(
-                    color ?? Colors.transparent, BlendMode.srcIn)),
+            child: SvgPicture.asset(
+              imagePath!,
+              height: height,
+              width: width,
+              fit: fit ?? BoxFit.contain,
+            ),
           );
         case ImageType.file:
           return Image.file(

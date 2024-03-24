@@ -10,8 +10,6 @@ class HomepageItemWidget extends StatelessWidget {
 
   CategoriesDataModel? homepageItemModelObj;
 
-  //TODO : GET THE CATEGORY ITEMS HERE
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(

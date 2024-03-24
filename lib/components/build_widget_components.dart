@@ -40,7 +40,7 @@ Widget buildPassword(BuildContext context,
           controller: passwordController,
           hintText: string,
           textInputAction: TextInputAction.done,
-          textInputType: TextInputType.visiblePassword,
+          textInputType: TextInputType.text,
           validator: validate
               ? (value) {
                   obscureText = !obscureText;
@@ -68,7 +68,7 @@ Widget buildConfirmPassword(BuildContext context,
           controller: passwordController,
           hintText: string,
           textInputAction: TextInputAction.done,
-          textInputType: TextInputType.visiblePassword,
+          textInputType: TextInputType.text,
           validator: (value) {
             obscureText = !obscureText;
             if (value == null || (!isValidPassword(value, isRequired: true))) {

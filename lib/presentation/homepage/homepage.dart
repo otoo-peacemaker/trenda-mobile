@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:trenda/core/app_export.dart';
 import 'package:trenda/presentation/homepage/screens/homepage_product_list.dart';
 import 'package:trenda/presentation/homepage/widgets/search_widget.dart';
@@ -41,13 +44,10 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(
-        ':::::::::::::::::::::::::::::::::::::${widget.postingDataResponse}');
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
-          width: double.maxFinite,
           decoration: AppDecoration.bg,
           child: Column(
             children: [
@@ -235,89 +235,53 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  SizedBox _buildExploreCategoryItemList(BuildContext context) {
-    return SizedBox(
-      height: 185.adaptSize,
+  Container _buildExploreCategoryItemList(BuildContext context) {
+    final categoriesData = widget.postingByCategoriesResponse.data;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      height: 350.adaptSize,
       width: SizeUtils.width,
-      child: Consumer<HomePageProvider>(
-        builder: (context, provider, child) {
-          return FutureBuilder<GetPostingByCategoriesResponseBody?>(
-            future: provider.getPostingByCategories(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                // Return a loading indicator while data is being fetched
-                return SizedBox(
-                  height: 20.adaptSize,
-                  width: SizeUtils.width,
-                  child: LoadingIndicator(
-                      indicatorType: Indicator.ballPulse,
-
-                      /// Required, The loading type of the widget
-                      colors: [
-                        Colors.green,
-                        Colors.yellow,
-                        appThemeColors.gray10001
-                      ],
-
-                      /// Optional, The color collections
-                      strokeWidth: 2,
-
-                      /// Optional, The stroke of the line, only applicable to widget which contains line
-                      backgroundColor: Colors.white,
-
-                      /// Optional, Background of the widget
-                      pathBackgroundColor: Colors.orange
-
-                      /// Optional, the stroke backgroundColor
+      child: GridView.builder(
+        scrollDirection: Axis.horizontal,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4, // Number of columns
+          crossAxisSpacing: 1.0.adaptSize, // Horizontal spacing between items
+          mainAxisSpacing: 1.0.adaptSize, // Vertical spacing between items
+        ),
+        itemCount: categoriesData?.length, // Total number of items
+        itemBuilder: (context, index) {
+          final model = categoriesData?[index];
+          return (model?.iconUrl != null)
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: CustomImageView(
+                        imagePath: model?.iconUrl,
+                        height: 60.adaptSize,
+                        width: 60.adaptSize,
                       ),
-                );
-              } else if (snapshot.hasError) {
-                // Handle error state
-                return Text('Error: ${snapshot.error}');
-              } else {
-                // Data fetched successfully, build the list view
-                final categoriesData = snapshot.data?.data;
-                if (categoriesData == null) {
-                  CustomEasyLoading.showToast('No data found');
-                }
+                    ),
+                    // buildWidgetSpace(height: 20),
 
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4, // Number of columns
-                    crossAxisSpacing: 1.0, // Horizontal spacing between items
-                    mainAxisSpacing: 1.0, // Vertical spacing between items
-                  ),
-                  itemCount: categoriesData!.length, // Total number of items
-                  itemBuilder: (context, index) {
-                    final model = categoriesData[index];
-                    return (model.iconUrl != null)
-                        ? Column(
-                            children: [
-                              CustomImageView(
-                                imagePath: model.iconUrl,
-                                height: 30.adaptSize,
-                                width: 30.adaptSize,
-                              ),
-                              wrapCategoryText(model.category!),
-                              Text(
-                                model.count.toString(),
-                                softWrap: true,
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Medium',
-                                  fontSize: 12.fSize,
-                                  color: const Color(0xFF98A2B3),
-                                ),
-                              ),
-                            ],
-                          )
-                        : CustomImageView(
-                            imagePath: ImageConstant.imageNotFound,
-                          );
-                  },
+                    Expanded(child: wrapCategoryText(model!.category!)),
+
+                    Expanded(
+                      child: Text(
+                        model.count.toString(),
+                        softWrap: true,
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-Medium',
+                          fontSize: 12.fSize,
+                          color: const Color(0xFF98A2B3),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : CustomImageView(
+                  imagePath: ImageConstant.imageNotFound,
                 );
-              }
-            },
-          );
         },
       ),
     );
@@ -350,6 +314,8 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     }
 
     return RichText(
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
       textAlign: TextAlign.center,
       text: TextSpan(children: spans),
     );
@@ -382,7 +348,7 @@ Widget buildHeader(BuildContext context,
       children: [
         // SizedBox(height: 36.v),
         CustomAppBar(
-          height: 70.h,
+          height: 80.h,
           leadingWidth: 40.h,
           leading: AppbarLeadingImage(
             imagePath: ImageConstant.imgFrame,

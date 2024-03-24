@@ -88,6 +88,8 @@ class _CustomListViewState extends State<CustomListView> {
                 CustomEasyLoading.showToast('No data found');
               }
 
+              //TO MAKE THE HEIGHT THE SAME WRAP THE WIDGET WITH A IntrinsicHeight
+
               final itemLength = postings?.length;
               return ListView.builder(
                 itemCount:
@@ -95,12 +97,13 @@ class _CustomListViewState extends State<CustomListView> {
                 itemBuilder: (context, index) {
                   return Row(
                     children: [
-                      Expanded(
+                      Flexible(
                         child: buildItemCard(
                             context, postings![index * 2], index * 2),
                       ),
-                      const SizedBox(width: 8), // Adjust spacing between items
-                      Expanded(
+                      SizedBox(
+                          width: 2.adaptSize), // Adjust spacing between items
+                      Flexible(
                         child: (index * 2 + 1 < itemLength)
                             ? buildItemCard(
                                 context, postings[index * 2 + 1], index * 2 + 1)
@@ -120,6 +123,9 @@ class _CustomListViewState extends State<CustomListView> {
     bool isBookedMarked = false;
     final uploadedFiles = item.uploadedFiles;
     final imgUrl = uploadedFiles?[0].url;
+
+    String stringValue = itemConditionValues.reverse[item.itemCondition]!;
+
     return GestureDetector(
       child: Card(
         margin: EdgeInsets.all(8.adaptSize),
@@ -131,8 +137,11 @@ class _CustomListViewState extends State<CustomListView> {
               Stack(
                 children: [
                   CustomImageView(
+                    height: 200.adaptSize,
+                    width: 200.adaptSize,
                     radius: BorderRadius.all(Radius.circular(5.adaptSize)),
                     imagePath: imgUrl,
+                    fit: BoxFit.cover,
                   ), // Background image
                   Positioned(
                     top: -7.adaptSize,
@@ -140,6 +149,7 @@ class _CustomListViewState extends State<CustomListView> {
                     child: Chip(
                       side: const BorderSide(color: Colors.transparent),
                       label: Text(
+                        maxLines: 2,
                         item.packageType!,
                         style: TextStyle(
                           fontSize: 10.fSize,
@@ -174,11 +184,12 @@ class _CustomListViewState extends State<CustomListView> {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.all(8.0.adaptSize),
+                padding: EdgeInsets.all(5.0.adaptSize),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      maxLines: 2,
                       'Ghc ${item.amount}',
                       style: TextStyle(
                           fontSize: 14.fSize,
@@ -187,6 +198,8 @@ class _CustomListViewState extends State<CustomListView> {
                           color: const Color(0xff00B557)),
                     ),
                     Text(
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       item.postTitle!,
                       style: TextStyle(
                         fontSize: 14.fSize,
@@ -195,16 +208,20 @@ class _CustomListViewState extends State<CustomListView> {
                         color: const Color(0xff344054),
                       ),
                     ),
-                    SizedBox(height: 8.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
-                          flex: 3,
-                          child: Chip(
-                            side: const BorderSide(color: Colors.transparent),
-                            label: Text(
-                              item.itemCondition!.name.toString(),
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF2F4F7),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Text(
+                              softWrap: true,
+                              stringValue,
                               style: TextStyle(
                                 fontSize: 10.fSize,
                                 fontFamily: 'Gilroy-Medium',
@@ -212,15 +229,16 @@ class _CustomListViewState extends State<CustomListView> {
                                 color: const Color(0xff475467),
                               ),
                             ),
-                            backgroundColor:
-                                const Color(0xFFF2F4F7), // Tag background color
                           ),
                         ),
                         Expanded(
-                          flex: 3,
-                          child: Chip(
-                            side: const BorderSide(color: Colors.transparent),
-                            label: Text(
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: const Color(0xffE6FFF2),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Text(
                               item.category!,
                               style: TextStyle(
                                 fontSize: 10.fSize,
@@ -229,10 +247,8 @@ class _CustomListViewState extends State<CustomListView> {
                                 color: const Color(0xff008C44),
                               ),
                             ),
-                            backgroundColor:
-                                const Color(0xffE6FFF2), // Tag background color
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ],
