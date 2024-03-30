@@ -39,7 +39,7 @@ class ApiInterceptor {
     dio.interceptors.add(LogInterceptor(
       requestBody: true,
       responseBody: true,
-      logPrint: (o) => print(o),
+      logPrint: (o) => Logger.log(o),
     ));
   }
 

@@ -1,25 +1,28 @@
+import 'package:auto_height_grid_view/auto_height_grid_view.dart';
+import 'package:onyxsio_grid_view/onyxsio_grid_view.dart';
+
 import '../../../../core/app_export.dart';
 import '../models/response_models/get_all_posting_response_body.dart';
 
 // ignore_for_file: must_be_immutable
-class HomePageProductList extends StatefulWidget {
-  const HomePageProductList({super.key, this.endpoint});
+class ProductListScreen extends StatefulWidget {
+  const ProductListScreen({super.key, this.endpoint});
 
   final String? endpoint;
 
   @override
-  HomePageProductListState createState() => HomePageProductListState();
+  ProductListScreenState createState() => ProductListScreenState();
 
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => HomePageProvider(),
-      child: const HomePageProductList(),
+      child: const ProductListScreen(),
     );
   }
 }
 
-class HomePageProductListState extends State<HomePageProductList>
-    with AutomaticKeepAliveClientMixin<HomePageProductList> {
+class ProductListScreenState extends State<ProductListScreen>
+    with AutomaticKeepAliveClientMixin<ProductListScreen> {
   @override
   bool get wantKeepAlive => true;
 
@@ -88,30 +91,24 @@ class _CustomListViewState extends State<CustomListView> {
                 CustomEasyLoading.showToast('No data found');
               }
 
-              //TO MAKE THE HEIGHT THE SAME WRAP THE WIDGET WITH A IntrinsicHeight
-
-              final itemLength = postings?.length;
-              return ListView.builder(
-                itemCount:
-                    (itemLength! / 2).ceil(), // Display two items per row
-                itemBuilder: (context, index) {
-                  return Row(
-                    children: [
-                      Flexible(
-                        child: buildItemCard(
-                            context, postings![index * 2], index * 2),
-                      ),
-                      SizedBox(
-                          width: 2.adaptSize), // Adjust spacing between items
-                      Flexible(
-                        child: (index * 2 + 1 < itemLength)
-                            ? buildItemCard(
-                                context, postings[index * 2 + 1], index * 2 + 1)
-                            : const SizedBox(), // Check if the next item exists
-                      ),
-                    ],
-                  );
-                },
+              final itemLength = postings?.length.toDouble();
+              return OnyxsioGridView.builder(
+                padding: const EdgeInsets.all(8),
+                // scrollDirection: Axis.horizontal,
+                itemCount: itemLength?.toInt(),
+                physics: const BouncingScrollPhysics(),
+                staggeredTileBuilder: (index) =>
+                    // OnyxsioStaggeredTile.count(2, index.isEven ? 2 : 1),
+                    // OnyxsioStaggeredTile.extent(2, index.isEven ? 200 : 50),
+                    const OnyxsioStaggeredTile.fit(1),
+                crossAxisCount: 2,
+                mainAxisSpacing: 5,
+                crossAxisSpacing: 5,
+                itemBuilder: (context, index) => OnyxsioGridTile(
+                  index: index,
+                  heightList: [itemLength!],
+                  child: buildItemCard(context, postings![index], index),
+                ),
               );
             }
           });
@@ -137,8 +134,7 @@ class _CustomListViewState extends State<CustomListView> {
               Stack(
                 children: [
                   CustomImageView(
-                    height: 200.adaptSize,
-                    width: 200.adaptSize,
+                    width: double.infinity,
                     radius: BorderRadius.all(Radius.circular(5.adaptSize)),
                     imagePath: imgUrl,
                     fit: BoxFit.cover,
@@ -198,7 +194,7 @@ class _CustomListViewState extends State<CustomListView> {
                           color: const Color(0xff00B557)),
                     ),
                     Text(
-                      maxLines: 2,
+                      maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       item.postTitle!,
                       style: TextStyle(
@@ -219,14 +215,18 @@ class _CustomListViewState extends State<CustomListView> {
                               color: const Color(0xFFF2F4F7),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: Text(
-                              softWrap: true,
-                              stringValue,
-                              style: TextStyle(
-                                fontSize: 10.fSize,
-                                fontFamily: 'Gilroy-Medium',
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff475467),
+                            child: Align(
+                              child: Text(
+                                softWrap: true,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                stringValue,
+                                style: TextStyle(
+                                  fontSize: 10.fSize,
+                                  fontFamily: 'Gilroy-Medium',
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xff475467),
+                                ),
                               ),
                             ),
                           ),
@@ -238,13 +238,17 @@ class _CustomListViewState extends State<CustomListView> {
                               color: const Color(0xffE6FFF2),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: Text(
-                              item.category!,
-                              style: TextStyle(
-                                fontSize: 10.fSize,
-                                fontFamily: 'Gilroy-Medium',
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xff008C44),
+                            child: Align(
+                              child: Text(
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                item.category!,
+                                style: TextStyle(
+                                  fontSize: 10.fSize,
+                                  fontFamily: 'Gilroy-Medium',
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xff008C44),
+                                ),
                               ),
                             ),
                           ),
@@ -268,3 +272,49 @@ class _CustomListViewState extends State<CustomListView> {
     );
   }
 }
+
+/*OnyxsioGridView.builder(
+        padding: const EdgeInsets.all(8),
+        // scrollDirection: Axis.horizontal,
+        itemCount: 20,
+        physics: const BouncingScrollPhysics(),
+        staggeredTileBuilder: (index) =>
+            // OnyxsioStaggeredTile.count(2, index.isEven ? 2 : 1),
+            // OnyxsioStaggeredTile.extent(2, index.isEven ? 200 : 50),
+            const OnyxsioStaggeredTile.fit(1),
+        crossAxisCount: 4,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+        itemBuilder: (context, index) => OnyxsioGridTile(
+          index: index,
+          heightList: const [150],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: CustomImageView(
+                  imagePath: categoriesData?[index].iconUrl,
+                  height: 60.adaptSize,
+                  width: 60.adaptSize,
+                ),
+              ),
+              // buildWidgetSpace(height: 20),
+
+              Expanded(
+                  child: wrapCategoryText(categoriesData![index].category!)),
+
+              Expanded(
+                child: Text(
+                  categoriesData[index].count.toString(),
+                  softWrap: true,
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-Medium',
+                    fontSize: 12.fSize,
+                    color: const Color(0xFF98A2B3),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      )*/

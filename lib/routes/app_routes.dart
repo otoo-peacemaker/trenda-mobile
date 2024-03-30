@@ -4,13 +4,12 @@ import 'package:trenda/presentation/authentication/select_option_to_verify_accou
 import 'package:trenda/presentation/authentication/sign_up_screen.dart';
 import 'package:trenda/presentation/authentication/sign_in_screen.dart';
 import 'package:trenda/presentation/authentication/verificy_account_screen.dart';
-import 'package:trenda/presentation/request_new_code_screen/request_new_code_screen.dart';
 import 'package:trenda/presentation/authentication/reset_password_screen.dart';
 import 'package:trenda/presentation/app_navigation_screen/app_navigation_screen.dart';
 import '../presentation/homepage/screens/all_categories/explore_product_categories.dart';
 import '../presentation/homepage/screens/product_details/product_details_page.dart';
 import '../presentation/homepage/screens/product_details/product_profile_details.dart';
-import '../presentation/homepage/widgets/container/mainpage_container.dart';
+import '../presentation/homepage/mainpage_container.dart';
 import '../presentation/onboarding/onboarding_frame_screen.dart';
 import '../presentation/sell_or_buy_screen/sell_or_buy_screen.dart';
 import '../presentation/splash_screen/splash_screen.dart';
@@ -56,7 +55,6 @@ class AppRoutes {
         verificyAccountScreen: VerifyAccountScreen.builder,
         selectOptionToVerifyAccountScreen:
             SelectOptionToVerifyAccountScreen.builder,
-        requestNewCodeScreen: RequestNewCodeScreen.builder,
         resetPasswordScreen: ResetPasswordScreen.builder,
         forgotPasswordScreen: ForgotPasswordScreen.builder,
         homepageContainer: HomepagePageContainer.builder,

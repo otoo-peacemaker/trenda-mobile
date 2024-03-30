@@ -8,6 +8,7 @@ class AppbarLeadingImage extends StatelessWidget {
     this.imagePath,
     this.margin,
     this.onTap,
+    this.color,
   });
 
   String? imagePath;
@@ -15,6 +16,8 @@ class AppbarLeadingImage extends StatelessWidget {
   EdgeInsetsGeometry? margin;
 
   Function? onTap;
+
+  Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class AppbarLeadingImage extends StatelessWidget {
           height: 20.adaptSize,
           width: 20.adaptSize,
           fit: BoxFit.contain,
-          color: const Color(0xFF101828),
+          color: color ?? const Color(0xFF101828),
         ),
       ),
     );

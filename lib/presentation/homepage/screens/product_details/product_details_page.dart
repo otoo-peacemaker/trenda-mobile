@@ -4,9 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:trenda/core/app_export.dart';
 import 'package:trenda/presentation/user/model/user_post_model.dart';
 import '../../../user/endpoints.dart';
-import '../../homepage.dart';
+import '../../widgets/build_header.dart';
+import '../homepage_screen.dart';
 import '../../models/response_models/get_all_posting_response_body.dart';
-import '../homepage_product_list.dart';
+import '../products_list_screen.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   const ProductDetailsPage({super.key});
@@ -46,7 +47,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              buildHeader(context, postingDataResponse: [_item]),
+              buildHeader(context,
+                  color: Colors.white, postingDataResponse: [_item], onTap: () {
+                NavigatorService.goBack();
+              }),
               SizedBox(
                 height: 80.adaptSize,
                 child: ListView.builder(
@@ -797,7 +801,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>
             ),
           ),
         ),
-        SizedBox(height: 400.v, child: HomePageProductList.builder(context))
+        SizedBox(height: 400.v, child: ProductListScreen.builder(context))
       ],
     );
   }

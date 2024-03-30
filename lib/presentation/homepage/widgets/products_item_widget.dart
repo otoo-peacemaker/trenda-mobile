@@ -2,8 +2,8 @@ import 'package:trenda/core/app_export.dart';
 import '../models/response_models/get_posting_by_categories.dart';
 
 // ignore: must_be_immutable
-class HomepageItemWidget extends StatelessWidget {
-  HomepageItemWidget(
+class ProductsItemWidget extends StatelessWidget {
+  ProductsItemWidget(
     this.homepageItemModelObj, {
     super.key,
   });

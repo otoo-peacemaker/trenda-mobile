@@ -1,5 +1,4 @@
 import 'sliderframe_item_model.dart';
-import '../../../core/app_export.dart';
 
 class OnboardingOneModel {
   List<SliderframeItemModel> sliderframeItemList =

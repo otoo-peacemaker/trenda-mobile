@@ -243,17 +243,15 @@ void showCustomSnackBar(BuildContext context, String message,
 }
 
 class TermsAndPrivacyCheckbox extends StatefulWidget {
+  TermsAndPrivacyCheckbox({super.key, this.onChange, required this.isChecked});
   final ValueChanged<bool>? onChange;
   bool isChecked = false;
 
-  TermsAndPrivacyCheckbox({super.key, this.onChange, required this.isChecked});
-
   @override
-  _TermsAndPrivacyCheckboxState createState() =>
-      _TermsAndPrivacyCheckboxState();
+  TermsAndPrivacyCheckboxState createState() => TermsAndPrivacyCheckboxState();
 }
 
-class _TermsAndPrivacyCheckboxState extends State<TermsAndPrivacyCheckbox> {
+class TermsAndPrivacyCheckboxState extends State<TermsAndPrivacyCheckbox> {
   @override
   Widget build(BuildContext context) {
     return Row(

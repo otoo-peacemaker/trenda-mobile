@@ -43,9 +43,9 @@ class CustomBottomBarState extends State<CustomBottomBar> {
       type: BottomBarEnum.messages,
     ),
     BottomMenuModel(
-      icon: ImageConstant.imgNavProfile,
-      activeIcon: ImageConstant.imgNavProfile,
-      title: "lbl_profile".tr,
+      icon: ImageConstant.imgFrame,
+      activeIcon: ImageConstant.imgFrame,
+      title: "Menu".tr,
       type: BottomBarEnum.profile,
     )
   ];
@@ -64,7 +64,6 @@ class CustomBottomBarState extends State<CustomBottomBar> {
         ),
       ),
       child: BottomNavigationBar(
-        backgroundColor: Colors.transparent,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         selectedFontSize: 0,

@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:onyxsio_grid_view/onyxsio_grid_view.dart';
 import 'package:trenda/core/app_export.dart';
-import 'package:trenda/presentation/homepage/screens/homepage_product_list.dart';
+import 'package:trenda/presentation/homepage/screens/products_list_screen.dart';
 import 'package:trenda/presentation/homepage/widgets/search_widget.dart';
-import 'models/response_models/get_all_posting_response_body.dart';
-import 'models/response_models/get_posting_by_categories.dart';
+import '../models/response_models/get_all_posting_response_body.dart';
+import '../models/response_models/get_posting_by_categories.dart';
+import '../widgets/build_header.dart';
+import '../widgets/custom_tab_bar.dart';
 
 // ignore_for_file: must_be_immutable
 class HomePage extends StatefulWidget {
@@ -52,6 +52,8 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
           child: Column(
             children: [
               buildHeader(context,
+                  leading: ImageConstant.imgNavProfile,
+                  color: Colors.white,
                   postingDataResponse:
                       widget.postingDataResponse.postingResponseData!), //header
               SizedBox(height: 24.h),
@@ -86,18 +88,27 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         tabviewController: tabviewController,
                         tabs: [
                           Tab(
-                            child: Text(
-                              "lbl_top_listings".tr,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "lbl_top_listings".tr,
+                              ),
                             ),
                           ),
                           Tab(
-                            child: Text(
-                              "lbl_trending".tr,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "lbl_trending".tr,
+                              ),
                             ),
                           ),
                           Tab(
-                            child: Text(
-                              "lbl_latest".tr,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "lbl_latest".tr,
+                              ),
                             ),
                           ),
                         ],
@@ -105,14 +116,14 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       buildWidgetSpace(height: 10.h),
                       buildTabBarView(context, tabviewController, [
                         //  HomePageProductList.builder(context, getAllPosting), //HomepageTopListingsPage
-                        HomePageProductList.builder(
+                        ProductListScreen.builder(
                           context,
                         ), //HomepageTopListingsPage
-                        HomePageProductList.builder(
+                        ProductListScreen.builder(
                           context,
                         ),
                         // HomePageProductList.builder(context, latest), //HomepageLatestOnePage
-                        HomePageProductList.builder(
+                        ProductListScreen.builder(
                           context,
                         ), //HomepageTopListingsPage
                       ]),
@@ -240,13 +251,15 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       height: 350.adaptSize,
-      width: SizeUtils.width,
+      width: 350.adaptSize,
       child: GridView.builder(
-        scrollDirection: Axis.horizontal,
+        primary: true,
+        physics: const BouncingScrollPhysics(),
+        // scrollDirection: Axis.horizontal,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4, // Number of columns
           crossAxisSpacing: 1.0.adaptSize, // Horizontal spacing between items
-          mainAxisSpacing: 1.0.adaptSize, // Vertical spacing between items
+          mainAxisSpacing: 15.0.adaptSize, // Vertical spacing between items
         ),
         itemCount: categoriesData?.length, // Total number of items
         itemBuilder: (context, index) {
@@ -258,8 +271,8 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     Expanded(
                       child: CustomImageView(
                         imagePath: model?.iconUrl,
-                        height: 60.adaptSize,
-                        width: 60.adaptSize,
+                        height: 50.adaptSize,
+                        width: 50.adaptSize,
                       ),
                     ),
                     // buildWidgetSpace(height: 20),
@@ -323,138 +336,3 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   /// Section Widget
 }
-
-Widget buildTabBarView(BuildContext context, TabController tabviewController,
-    List<Widget> products) {
-  return SizedBox(
-    height: SizeUtils.height,
-    child: TabBarView(
-      controller: tabviewController,
-      children: products,
-    ),
-  );
-}
-
-/// Section Widget
-Widget buildHeader(BuildContext context,
-    {required List<PostingDataResponse> postingDataResponse}) {
-  return Container(
-    padding: EdgeInsets.only(
-      bottom: 15.h,
-    ),
-    decoration: AppDecoration.outlineBlueGray,
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // SizedBox(height: 36.v),
-        CustomAppBar(
-          height: 80.h,
-          leadingWidth: 40.h,
-          leading: AppbarLeadingImage(
-            imagePath: ImageConstant.imgFrame,
-            margin: EdgeInsets.only(
-              left: 16.h,
-              top: 3.v,
-              bottom: 3.v,
-            ),
-          ),
-          centerTitle: true,
-          title: AppbarTitleImage(
-              imagePath: ImageConstant.imgTrendaLogoUp2,
-              margin: EdgeInsets.only(
-                top: 10.v,
-                bottom: 3.v,
-              )),
-          actions: [
-            AppbarTrailingImage(
-              imagePath: ImageConstant.imgNotification,
-              margin: EdgeInsets.symmetric(
-                horizontal: 18.h,
-                vertical: 5.v,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 8.v),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.h),
-          child: Selector<HomePageProvider, TextEditingController?>(
-            selector: (
-              context,
-              provider,
-            ) =>
-                provider.searchController,
-            builder: (context, searchController, child) {
-              return Consumer<HomePageProvider>(
-                  builder: (context, provider, child) {
-                return SearchWidget(
-                  postings: postingDataResponse,
-                );
-              });
-            },
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-class CustomTabBar extends StatelessWidget {
-  const CustomTabBar({
-    super.key,
-    required this.tabviewController,
-    required this.tabs,
-    this.boxDecoration,
-  });
-
-  final TabController tabviewController;
-  final List<Tab> tabs;
-  final BoxDecoration? boxDecoration;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 25.h,
-      width: SizeUtils.width,
-      child: TabBar(
-        controller: tabviewController,
-        labelPadding: EdgeInsets.symmetric(horizontal: 20.v, vertical: 5.h),
-        labelColor: appThemeColors.teal900,
-        labelStyle: TextStyle(
-          fontSize: 14.fSize,
-          fontFamily: 'Gilroy-Regular',
-          fontWeight: FontWeight.w400,
-        ),
-        unselectedLabelColor: appThemeColors.blueGray500,
-        unselectedLabelStyle: TextStyle(
-          fontSize: 14.fSize,
-          fontFamily: 'Gilroy-Regular',
-          fontWeight: FontWeight.w400,
-          decorationColor: appThemeColors.greenA700,
-        ),
-        indicator: boxDecoration,
-        tabs: tabs,
-      ),
-    );
-  }
-}
-
-BoxDecoration boxDecoration = BoxDecoration(
-  color: appThemeColors.greenA100,
-  borderRadius: BorderRadius.circular(
-    8.h,
-  ),
-  border: Border.all(
-    color: appThemeColors.greenA700,
-    width: 1.h,
-  ),
-  boxShadow: [
-    BoxShadow(
-      color: appThemeData.colorScheme.primary,
-      offset: const Offset(
-        0,
-        1,
-      ),
-    ),
-  ],
-);

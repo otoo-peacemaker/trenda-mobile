@@ -30,7 +30,7 @@ class TrendaApp extends StatelessWidget {
                     '',
                   ),
                 ],
-                initialRoute: AppRoutes.splashScreen,
+                initialRoute: AppRoutes.signInScreen,
                 routes: AppRoutes.routes,
                 builder: EasyLoading.init(),
               );

@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../core/app_export.dart';
+import '../../../core/app_export.dart';
 import 'models/sliderframe_item_model.dart';
 import 'provider/onboarding_one_provider.dart';
 import 'widgets/sliderframe_item_widget.dart';

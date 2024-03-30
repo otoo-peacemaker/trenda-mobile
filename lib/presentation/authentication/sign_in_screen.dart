@@ -103,6 +103,7 @@ class SignInScreenState extends State<SignInScreen> {
                 email: email,
                 password: password,
               );
+
               if (_validateFields(password, email)) {
                 try {
                   // Execute login and data fetching synchronously
@@ -136,7 +137,7 @@ class SignInScreenState extends State<SignInScreen> {
                   }
                 } catch (e) {
                   debugPrint("Error while signing in: $e");
-                  showMessage("Something went wrong");
+                  showMessage("Connection error");
                 }
               }
             },

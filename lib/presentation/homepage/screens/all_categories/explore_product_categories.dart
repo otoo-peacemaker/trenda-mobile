@@ -1,8 +1,10 @@
 import '../../../../core/app_export.dart';
-import '../../homepage.dart';
+import '../../widgets/build_header.dart';
+import '../../widgets/custom_tab_bar.dart';
+import '../homepage_screen.dart';
 import '../../models/response_models/get_all_posting_response_body.dart';
 import '../../models/response_models/get_posting_by_categories.dart';
-import '../homepage_product_list.dart';
+import '../products_list_screen.dart';
 
 class ExploreProductCategory extends StatefulWidget {
   const ExploreProductCategory({super.key});
@@ -21,7 +23,7 @@ class ExploreProductCategory extends StatefulWidget {
 class _ExploreProductCategoryState extends State<ExploreProductCategory>
     with TickerProviderStateMixin {
   late TabController tabviewController;
-
+  late String? category = '';
   @override
   void initState() {
     super.initState();
@@ -31,6 +33,7 @@ class _ExploreProductCategoryState extends State<ExploreProductCategory>
   @override
   Widget build(BuildContext context) {
     final List<String> categories = [];
+
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final GetAllPostingResponseBody postingDataResponse = args['dataResponse'];
@@ -47,8 +50,11 @@ class _ExploreProductCategoryState extends State<ExploreProductCategory>
         child: Column(
           children: [
             buildHeader(context,
-                postingDataResponse:
-                    postingDataResponse.postingResponseData!), //header
+                color: Colors.white,
+                postingDataResponse: postingDataResponse.postingResponseData!,
+                onTap: () {
+              NavigatorService.goBack();
+            }), //header
             SizedBox(height: 24.h),
             Expanded(
               child: SingleChildScrollView(
@@ -65,14 +71,14 @@ class _ExploreProductCategoryState extends State<ExploreProductCategory>
                       ],
                     ),
                     buildCategoryHeader(),
-                    buildFilterDropdowns(categories),
+                    buildDropdowns(categories),
                     buildTabBarView(context, tabviewController, [
-                      HomePageProductList.builder(
+                      ProductListScreen.builder(
                           context), //HomepageTopListingsPage
-                      HomePageProductList.builder(
+                      ProductListScreen.builder(
                           context), //HomepageTopListingsPage
-                      HomePageProductList.builder(context),
-                      HomePageProductList.builder(
+                      ProductListScreen.builder(context),
+                      ProductListScreen.builder(
                           context), //HomepageLatestOnePage
                     ]),
                   ],
@@ -90,27 +96,27 @@ class _ExploreProductCategoryState extends State<ExploreProductCategory>
       margin: EdgeInsets.fromLTRB(10.v, 10.h, 0, 5.adaptSize),
       alignment: Alignment.topLeft,
       child: Text(
-        'Fashion',
+        category!,
         style: CustomTextStyles.headerTextStyle,
       ),
     );
   }
 
-  Widget buildFilterDropdowns(List<String> categories) {
+  Widget buildDropdowns(List<String> categories) {
     return Padding(
       padding: EdgeInsets.all(10.0.adaptSize),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: buildDropdownButton(
+            child: _buildDropdownButton(
                 hint: 'Category',
                 iconPath: ImageConstant.imgArrowDown,
                 categories: categories),
           ),
           buildWidgetSpace(width: 10),
           Expanded(
-            child: buildDropdownButton(
+            child: _buildDropdownButton(
                 hint: 'Advanced Filter',
                 iconPath: ImageConstant.imgSort,
                 categories: categories),
@@ -120,7 +126,7 @@ class _ExploreProductCategoryState extends State<ExploreProductCategory>
     );
   }
 
-  Widget buildDropdownButton(
+  Widget _buildDropdownButton(
       {required String hint,
       required String iconPath,
       required List<String> categories}) {
@@ -154,7 +160,11 @@ class _ExploreProductCategoryState extends State<ExploreProductCategory>
             ),
           );
         }).toList(),
-        onChanged: (value) {},
+        onChanged: (value) {
+          setState(() {
+            category = value;
+          });
+        },
       ),
     );
   }

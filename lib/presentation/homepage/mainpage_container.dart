@@ -1,7 +1,7 @@
 import 'package:trenda/core/app_export.dart';
-import '../../homepage.dart';
-import '../../models/response_models/get_all_posting_response_body.dart';
-import '../../models/response_models/get_posting_by_categories.dart';
+import 'screens/homepage_screen.dart';
+import 'models/response_models/get_all_posting_response_body.dart';
+import 'models/response_models/get_posting_by_categories.dart';
 
 // ignore_for_file: must_be_immutable
 class HomepagePageContainer extends StatefulWidget {

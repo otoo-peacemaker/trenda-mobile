@@ -10,9 +10,4 @@ import '../models/splash_model.dart';
 // ignore_for_file: must_be_immutable
 class SplashProvider extends ChangeNotifier {
   SplashModel splashModelObj = SplashModel();
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

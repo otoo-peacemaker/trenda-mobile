@@ -1,8 +1,7 @@
 // import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:trenda/core/app_export.dart';
-
-import '../onboarding_one_screen/provider/onboarding_one_provider.dart';
+import 'onboarding_one_screen/provider/onboarding_one_provider.dart';
 
 /*class OnboardingScreenSlider extends StatelessWidget {
   const OnboardingScreenSlider({super.key});

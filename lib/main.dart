@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:trenda/app.dart';
-
 import 'core/app_export.dart';
 
 var globalMessengerKey = GlobalKey<ScaffoldMessengerState>();
